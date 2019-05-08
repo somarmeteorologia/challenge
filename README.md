@@ -10,6 +10,8 @@
 
 Os dados do propótipo são apenas ilustrativos, os reais você poderá obter na nossa API Nimbus que iremos-lhe fornecer o token de uso.
 
+Fique a vontade para fazer a implementação estética como quiser, utilizando alguma UI library ou também algo para o gráfico.
+
 O **APP Minha Semana** se consiste nos seguintes passos,
 - Pedir as informações da semana atual com base na latitude e longitude para a Nimbus
 - Exibir os seguintes dados em uma tabela, **temperatura máxima**, **temperatura mínima** e **média de humidade** de cada dia
@@ -19,7 +21,6 @@ O **APP Minha Semana** se consiste nos seguintes passos,
 - A primeira linha da tabela, **temperatura máxima** e deve se utilizar a propriedade `max_temperature` da API
 - Já na segunda linha, **temperatura mínima** e deve se utilizar `min_temperature`
 - Por último, representa a **média de humidade** e deve se utilizar a propriedade `max_rel_humidity` sendo que como são 5  barras, elas devem estar preenchidas de 20 em 20%. Ex, se na sexta-feira a humidade é de 61%, deve-se preencher 3 barras.
-
 
 **Quanto a exibição no gráfico**
 - Na linha em vermelho é a **temperatura máxima**
