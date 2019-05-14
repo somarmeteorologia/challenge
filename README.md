@@ -18,14 +18,23 @@ O **APP Minha Semana** se consiste nos seguintes passos,
 - Exibir os mesmos dados em um gráfico de linha e barras.
 
 **Quanto a exibição na tabela**
-- A primeira linha da tabela, **temperatura máxima** e deve se utilizar a propriedade `max_temperature` da API
-- Já na segunda linha, **temperatura mínima** e deve se utilizar `min_temperature`
-- Por último, representa a **média de humidade** e deve se utilizar a propriedade `max_rel_humidity` sendo que como são 5  barras, elas devem estar preenchidas de 20 em 20%. Ex, se na sexta-feira a humidade é de 61%, deve-se preencher 3 barras.
+- A primeira linha da tabela, **temperatura máxima**
+- Já na segunda linha, **temperatura mínima**
+- Por último, representa a **média de humidade**
 
 **Quanto a exibição no gráfico**
 - Na linha em vermelho é a **temperatura máxima**
 - Em ciano, **temperatura mínima**
 - Barras em azul, **média de humidade**.
+
+## Consumindo a API
+[Aqui você encontra mais informações](https://doc.nimbus.somar.io/#introduction) sobre a Nimbus, nesse momento iremos utilizar para o challenge apenas os recursos de `forecast` e `observed`.
+
+- Para **temperatura máxima**, consumindo da `forecast` utilizar propriedade `temperature_daily_max` e na `observed` utilizar `max_temperature`
+- Para **temperatura mínima**, consumindo da `forecast` utilizar propriedade `temperature_daily_min` e na `observed` utilizar `min_temperature`
+- Para **média de humidade**, consumindo da `forecast` utilizar propriedade `rel_humidity_daily_avg` e na `observed` é necessário somar as propriedades `max_rel_humidity` e `min_rel_humidity` e dividir por dois.
+
+
 
 ### APP Minha Semana
 <img src="https://i.imgur.com/IFVoz14.png"/>
