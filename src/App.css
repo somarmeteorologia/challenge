@@ -1,0 +1,18 @@
+.logo-image {
+  width: 50%;
+  height: 30%;
+  flex-wrap: wrap;
+}
+@media screen and (min-width: 800px) and (max-width: 1600px){
+  .logo-image {
+    width: 40%;
+    height: 40%;
+  }
+}
+
+@media screen and (min-width: 1601px) {
+  .logo-image{
+    width: 30%;
+    height: 35%;
+  }
+}
