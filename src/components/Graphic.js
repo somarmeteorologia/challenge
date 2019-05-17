@@ -11,9 +11,6 @@ import {
   Bar
 } from 'recharts';
 
-import {
-   } from 'recharts';
-
 const data = [
   {
     name: 'Domingo', tmax: 40, tmin: 24, hum: 40,
@@ -57,15 +54,14 @@ export default class Graphic extends React.Component {
               top: 20, right: 20, bottom: 20, left: 20,
             }}
           >
-            <CartesianGrid stroke="#f5f5f5" />
-            <XAxis dataKey="hum" />
-              %
-            <YAxis />
+            <CartesianGrid stroke="#fff" />
+            <XAxis dataKey="hum" tickSize={0} tick={{stroke: '#666666', strokeWidth: 0}} tickMargin={20}/>
+            <YAxis tickSize={0} tick={{stroke: '#666666', strokeWidth: 0}} tickMargin={20}/>
             <Tooltip/>
-            <Legend verticalAlign="bottom" height={20}/>
-            <Line name="Temperatura Minima" type="monotone" dataKey="tmin" stroke="#59EBFF" activeDot={{ r: 8 }} />
+            <Legend verticalAlign="bottom" height={20} iconSize={20} iconType="circle" />
+            <Line name="Temperatura Mínima" type="monotone" dot={{ stroke: '#000', strokeWidth: 10 }} dataKey="tmin" stroke="#59EBFF" activeDot={{ r: 8 }} />
             <Bar name="Umidade" dataKey="hum" barSize={50} fill="#3FA2F7" />
-            <Line name="Temperatura Maxima" type="monotone" dataKey="tmax" stroke="#E86C60" activeDot={{ r: 8 }}/>
+            <Line name="Temperatura Máxima" itype="monotone" dot={{ stroke: '#E86C60', strokeWidth: 10 }} dataKey="tmax" stroke="#E86C60" activeDot={{ r: 8 }} />
           </ComposedChart>
         </ResponsiveContainer>
       </div>
