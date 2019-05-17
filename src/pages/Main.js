@@ -3,6 +3,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { Redirect } from 'react-router-dom';
 import Graphic from '../components/Graphic';
+require('dotenv').config({path: ".env"});
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config({path: ".env"});
