@@ -3,7 +3,6 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { Redirect } from 'react-router-dom';
 import Graphic from '../components/Graphic';
-require('dotenv').config({path: ".env"});
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config({path: ".env"});
@@ -145,7 +144,7 @@ class Main extends React.Component {
 
     await axios.get(url, {
       headers: { 
-        "x-api-key": process.env.API_KEY || 'KXxKvWD7xUgMp2gGdfgX2cMctDrazMS30QW2rIme'
+        "x-api-key": process.env.REACT_APP_APY_TOKEN
       }})
       .then(resp => {
         // handle success
