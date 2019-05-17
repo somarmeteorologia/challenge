@@ -60,7 +60,7 @@ export default class Graphic extends React.Component {
             <Tooltip/>
             <Legend verticalAlign="bottom" height={20} iconSize={20} iconType="circle" />
             <Line name="Temperatura Mínima" type="monotone" dot={{ stroke: '#000', strokeWidth: 10 }} dataKey="tmin" stroke="#59EBFF" activeDot={{ r: 8 }} />
-            <Bar name="Umidade" dataKey="hum" barSize={50} fill="#3FA2F7" />
+            <Bar name="Umidade" dataKey="hum" barSize={50}  fill="#3FA2F7" />
             <Line name="Temperatura Máxima" itype="monotone" dot={{ stroke: '#E86C60', strokeWidth: 10 }} dataKey="tmax" stroke="#E86C60" activeDot={{ r: 8 }} />
           </ComposedChart>
         </ResponsiveContainer>
