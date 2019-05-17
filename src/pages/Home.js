@@ -15,13 +15,19 @@ const Root = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 3em;
+  font-size: 3.5em;
   letter-spacing: 5px;
   font-weight: 300;
   color: #fff;
   :hover {
     color: white;
     letter-spacing: 7px;
+  }
+  @media screen and (max-width: 400px) {
+    font-size: 30px;
+  }
+  @media screen and (min-width: 401px) and (max-width: 1200px){
+    font-size: 40px;
   }
 `;
 
@@ -40,6 +46,18 @@ const Button = styled.button`
     border-color: white;
   }
 `
+const Subtitle = styled.small`
+  color: dark;
+  font-weight: 300;
+  margin: 10px;
+  @media screen and (max-width: 400px) {
+    font-size: 15px;
+    padding: 10px;
+  }
+  @media screen and (min-width: 800px){
+    font-size: 16px;
+  }
+`;
 
 class Home extends React.Component {
   state = {
@@ -55,7 +73,9 @@ class Home extends React.Component {
   render() {
     return (
       <Root>
+        <img src={require('../assets/images/cloud-159394_960_720.png')}  className="logo-image"/>
         <Title>Minha Semana</Title>
+        <Subtitle>Previsões meteorologicas de acordo com sua localidade</Subtitle>
         <Button>
           <Link style={{color: '#FFF', textDecoration: 'none'}} 
             to={{
