@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
-import Color from "../utils/Color";
+import Color from "../../utils/Color";
 
-import styles from "./BarStyles";
+import styles from "./Styles";
 
 import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";

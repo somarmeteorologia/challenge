@@ -1,33 +1,68 @@
-# Front End Challenge
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Como participar
-1. Crie um novo fork e branch com seu nome-sobrenome e faça um pull request quando estiver pronto.
-2. Envie um email para challenge@somar.io para marcarmos uma conversa e fornecermos para você um token de uso da nossa API.
+## Available Scripts
 
-## Sobre o challenge
+In the project directory, you can run:
 
-É claro que, além de uma boa conversa que queremos ter com você, estamos disponibilizando esse pequeno challenge onde queremos observar um pouco do seu comprometimento técnico, como, boas práticas na implementação, organização do projeto, performance, testes e é claro, resolver o problema proposto.
+### `npm start`
 
-Os dados do propótipo são apenas ilustrativos, os reais você poderá obter na nossa API Nimbus que iremos-lhe fornecer o token de uso.
+Runs the app in the development mode.<br>
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-Fique a vontade para fazer a implementação estética como quiser, utilizando alguma UI library ou também algo para o gráfico.
+The page will reload if you make edits.<br>
+You will also see any lint errors in the console.
 
-O **APP Minha Semana** se consiste nos seguintes passos,
-- Pedir as informações da semana atual com base na latitude e longitude para a Nimbus
-- Exibir os seguintes dados em uma tabela, **temperatura máxima**, **temperatura mínima** e **média de humidade** de cada dia
-- Exibir os mesmos dados em um gráfico de linha e barras.
+### `npm test`
 
-**Quanto a exibição na tabela**
-- A primeira linha da tabela, **temperatura máxima** e deve se utilizar a propriedade `max_temperature` da API
-- Já na segunda linha, **temperatura mínima** e deve se utilizar `min_temperature`
-- Por último, representa a **média de humidade** e deve se utilizar a propriedade `max_rel_humidity` sendo que como são 5  barras, elas devem estar preenchidas de 20 em 20%. Ex, se na sexta-feira a humidade é de 61%, deve-se preencher 3 barras.
+Launches the test runner in the interactive watch mode.<br>
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-**Quanto a exibição no gráfico**
-- Na linha em vermelho é a **temperatura máxima**
-- Em ciano, **temperatura mínima**
-- Barras em azul, **média de humidade**.
+### `npm run build`
 
-### APP Minha Semana
-<img src="https://i.imgur.com/IFVoz14.png"/>
+Builds the app for production to the `build` folder.<br>
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-[Acesse aqui o protótipo.](https://www.figma.com/file/QflwpTxjCgrYd3akVjOheq/Challenge?node-id=7753%3A4396)
+The build is minified and the filenames include the hashes.<br>
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `npm run eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+
+### Analyzing the Bundle Size
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+
+### Making a Progressive Web App
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+
+### Advanced Configuration
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+
+### Deployment
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+
+### `npm run build` fails to minify
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify

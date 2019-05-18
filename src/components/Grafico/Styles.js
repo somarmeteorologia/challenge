@@ -1,4 +1,4 @@
-import Colors from "./utils/Color";
+import Colors from "../../utils/Color";
 const styles = theme => ({
   layout: {
     width: "auto",
