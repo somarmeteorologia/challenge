@@ -140,11 +140,12 @@ class Main extends React.Component {
     console.log('longitude' + longitude);
     const url = "https://nimbus.somar.io/forecast/10days?latitude="+latitude+"&longitude="+longitude +"&reference=Somar";
 
-    console.log(process.env)
-
     await axios.get(url, {
       headers: { 
-        "x-api-key": process.env.REACT_APP_APY_TOKEN
+        "x-api-key": process.env.REACT_APP_APY_TOKEN,
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Origin': '*' ,
+        'Access-Control-Allow-Headers':'origin, content-type, accept, authorization'
       }})
       .then(resp => {
         // handle success
