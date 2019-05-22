@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from "react-router-dom";
+import moment from 'moment';
 
 const Root = styled.div`
   width: 100vw;
@@ -69,6 +70,14 @@ class Home extends React.Component {
       console.log(location);
       this.setState({latitude: location.coords.latitude, longitude: location.coords.longitude});
     });
+    console.clear()
+
+    moment.defineLocale('pt-br', {
+      weekdays : 'Domingo_Segunda-feira_Terça-feira_Quarta-feira_Quinta-feira_Sexta-feira_Sábado'.split('_')
+    });
+
+    console.log(moment('20-05-2019', 'DD-MM-YYYY').format('dddd'));
+    console.log(moment().format());
   }
   render() {
     return (
