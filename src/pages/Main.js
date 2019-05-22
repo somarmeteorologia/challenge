@@ -1,164 +1,73 @@
 import React from 'react';
 import axios from 'axios';
-import styled from 'styled-components';
-import { Redirect } from 'react-router-dom';
+
+import { Redirect, Link } from 'react-router-dom';
+
+import Loading from '../components/Loading';
 import Graphic from '../components/Graphic';
+
+import { RootMain, Table, RowDate, RowTmax, RowTmin, RowHum, Tbody, Th, ThTop, Td, ContainerGraphic } from '../styles';
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config({path: ".env"});
 }
 
-const Root = styled.div`
-  width: 80vw;
-  height: 80vh;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  background-color: #FFF;
-  margin: 0 auto;
-  margin-top: 5%;
-  padding: 10px;
-`;
-
-const Table = styled.table`
-  width: 100%;
-  min-height: 50%;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  flex-wrap: wrap;
-`;
-
-const RowDate = styled.div`
-  width: 100%;
-  height: 25%;
-  display: flex;
-  text-align: center;
-  flex-wrap: wrap;
-  background-color: #EAEAEA;
-`;
-
-const RowTmax = styled.div`
-  width: 100%;
-  height: 33%;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  border-bottom: 1px solid #D4D4D4;
-  margin: 0 auto;
-`;
-
-const RowTmin = styled.div`
-  width: 100%;
-  height: 33%;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  border-bottom: 1px solid #D4D4D4;
-  margin: 0 auto;
-`;
-
-const RowHum = styled.div`
-  width: 100%;
-  height: 33%;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  border-bottom: 1px solid #D4D4D4;
-  margin: 0 auto;
-`;
-
-const Tbody = styled.tbody`
-  width: 100%;
-  height: 75%;
-`;
-
-const Th = styled.th`
-  width: 95%;
-  height: 100%;
-  margin: 0 auto;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  font-family: Roboto;
-`;
-
-const ThTop = styled(Th)`
-  width: 95%; 
-  height: 100%;
-  flex-direction: row;
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 14px;
-  line-height: 16px;
-`;
-
-const Td = styled.td`
-  width: 20%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 14px;
-  line-height: 16px;
-`;
-
-const ContainerGraphic = styled.div`
-  width: 100%;
-  height: 50%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
 class Main extends React.Component {
+  constructor(props) {
+    super();
 
-  state = {
-    latitude: '',
-    longitude: '',
-    data: [],
-    loaded: false,
-    graphic: []
+    this.state= {
+      latitude: '',
+      longitude: '',
+      data: [],
+      loaded: false,
+      graphic: []
+    }
   }
 
   async componentDidMount() {
 
-    const latitude = this.props.location.state.latitude; 
-    const longitude = this.props.location.state.longitude;
-    console.log('latitude' + latitude);
-    console.log('longitude' + longitude);
-    const url = "https://nimbus.somar.io/forecast/10days?latitude="+latitude+"&longitude="+longitude +"&reference=Somar";
+    await navigator.geolocation.getCurrentPosition( location => {
+      const lat = location.coords.latitude.toString();
+      const lng = location.coords.longitude.toString();
 
-    console.log(process.env)
-    await axios.get(url, {
-      headers: { 
-        "x-api-key": process.env.REACT_APP_APY_TOKEN,
-      }})
-      .then(resp => {
-        // handle success
-        console.log(resp);
-        console.log(resp.data);
-        this.setState({ data: resp.data , loaded: true });
-        console.log(this.state.data)
-        //this.setState({graphic: resp.data, loaded: true});
-        this.geraGrafico(resp.data);
-      })
-      .catch(function (error) {
-        // handle error
-        console.log('Error!!')
-        console.log(error);
-      })
+      this.setState({ latitude: lat, longitude: lng });
+    });
+
+
+    const url1 = `https://nimbus.somar.io/forecast/10days?latitude="${this.state.latitude}"&longitude="${this.state.longitude}"&reference=Somar"`;
+    const url = "https://nimbus.somar.io/forecast/10days?latitude=" + -23.55052 + "&longitude=" + -46.633308 + "&reference=Somar";
+
+    if(url === url1) {
+      alert('iguais');
+    }
+    else{
+      alert('diferentes');
+    }
+    console.log(process.env);
+
+    if( this.state.latitude !== undefined ){
+      await axios.get(url, {
+        headers: { 
+          "x-api-key": process.env.REACT_APP_API_TOKEN,
+        }})
+        .then(resp => {
+          // handle success
+          console.log(resp);
+          console.log(resp.status)
+          console.log(resp.data);
+          this.setState({ data: resp.data , loaded: true });
+          console.log(this.state.data)
+          this.geraGrafico(resp.data);
+        })
+        .catch(function (error) {
+          // handle error
+          console.log('Error!!')
+          console.log(error);
+        })
+      }else{
+        alert('Latitude e longitude não autorizadas pelo browser ou invalidas'); 
+      }
     }
 
 
@@ -203,8 +112,9 @@ class Main extends React.Component {
     if(this.props.logged === false) return <Redirect to="/" />
 
     return (
-      <Root>
+      <RootMain>
         {this.state.loaded === true ? 
+          <>
           <Table>
             <RowDate>
               <ThTop>
@@ -237,12 +147,14 @@ class Main extends React.Component {
               </RowHum>
             </Tbody>
           </Table>
-          : <h1 style={{color: 'white', justifySelf: 'center'}}>Loading</h1>
-        }
-        <ContainerGraphic>
-          <Graphic data={this.state.graphic}/>
-        </ContainerGraphic>
-      </Root>
+          <ContainerGraphic>
+            <Graphic data={this.state.graphic}/>
+          </ContainerGraphic>
+        </>
+        : 
+          <Loading loading={true}/>
+      }
+      </RootMain>
     );
   }
 }
