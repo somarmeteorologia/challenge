@@ -2,63 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from "react-router-dom";
 import moment from 'moment';
-
-const Root = styled.div`
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  flex-flow: column wrap;
-  align-items: center;
-  justify-content: center;
-  margin: 0;
-  padding: 0;
-  background-color: #333;
-`;
-
-const Title = styled.h1`
-  font-size: 3.5em;
-  letter-spacing: 5px;
-  font-weight: 300;
-  color: #fff;
-  :hover {
-    color: white;
-    letter-spacing: 7px;
-  }
-  @media screen and (max-width: 400px) {
-    font-size: 30px;
-  }
-  @media screen and (min-width: 401px) and (max-width: 1200px){
-    font-size: 40px;
-  }
-`;
-
-const Button = styled.button`
-  width: 130px;
-  height: 50px;
-  background: transparent;
-  border-radius: 6px;
-  border: 2px solid palevioletred;
-  color: white;
-  margin: 0 1em;
-  padding: 0.25em 1em;
-  margin-top: 15px;
-  cursor: pointer;
-  :hover {
-    border-color: white;
-  }
-`
-const Subtitle = styled.small`
-  color: dark;
-  font-weight: 300;
-  margin: 10px;
-  @media screen and (max-width: 400px) {
-    font-size: 15px;
-    padding: 10px;
-  }
-  @media screen and (min-width: 800px){
-    font-size: 16px;
-  }
-`;
+import { Root, Title, Button, Subtitle } from '../styles';
 
 class Home extends React.Component {
   state = {
@@ -82,7 +26,7 @@ class Home extends React.Component {
   render() {
     return (
       <Root>
-        <img src={require('../assets/images/cloud-159394_960_720.png')}  className="logo-image"/>
+        <img src={require('../assets/images/cloud-159394_960_720.png')} alt="image logo"  className="logo-image"/>
         <Title>Minha Semana</Title>
         <Subtitle>Previsões meteorologicas de acordo com sua localidade</Subtitle>
         <Button>
