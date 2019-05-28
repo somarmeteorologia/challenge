@@ -25,28 +25,12 @@ class Main extends React.Component {
     }
   }
 
-  async componentDidMount() {
-
-    await navigator.geolocation.getCurrentPosition( location => {
-      const lat = location.coords.latitude.toString();
-      const lng = location.coords.longitude.toString();
-
-      this.setState({ latitude: lat, longitude: lng });
-    });
-
+  async requestData() {
 
     const url1 = `https://nimbus.somar.io/forecast/10days?latitude="${this.state.latitude}"&longitude="${this.state.longitude}"&reference=Somar"`;
-    const url = "https://nimbus.somar.io/forecast/10days?latitude=" + -23.55052 + "&longitude=" + -46.633308 + "&reference=Somar";
+    const url = "https://nimbus.somar.io/forecast/10days?latitude=" + -23.33032 + "&longitude=" + -46.633308 + "&reference=Somar";
 
-    if(url === url1) {
-      alert('iguais');
-    }
-    else{
-      alert('diferentes');
-    }
-    console.log(process.env);
-
-    if( this.state.latitude !== undefined ){
+    if( this.state.latitude !== undefined && this.state.longitude !== undefined){
       await axios.get(url, {
         headers: { 
           "x-api-key": process.env.REACT_APP_API_TOKEN,
@@ -54,28 +38,44 @@ class Main extends React.Component {
         .then(resp => {
           // handle success
           console.log(resp);
-          console.log(resp.status)
           console.log(resp.data);
           this.setState({ data: resp.data , loaded: true });
           console.log(this.state.data)
-          this.geraGrafico(resp.data);
+          this.makeGraphic(resp.data);
         })
         .catch(function (error) {
           // handle error
           console.log('Error!!')
           console.log(error);
         })
-      }else{
-        alert('Latitude e longitude não autorizadas pelo browser ou invalidas'); 
-      }
+    }else{
+      alert('Latitude e longitude não autorizadas pelo browser ou invalidas'); 
     }
+  }
+  async componentDidMount() {
+
+    await navigator.geolocation.getCurrentPosition( location => {
+      this.setState({ 
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude 
+      });
+    });
+
+    await this.requestData();
+    
+  }
 
 
     formatTemp = temp => {
       const n_temp = temp.toString();
       return n_temp.substr(0, 2);
     };
-
+    
+    formatHum = hum => {
+      const og = Math.pow(10, 0)
+      console.log(Math.floor(hum * og) / og);
+      return Math.floor(hum * og) / og;
+    };
 
     formatData = i => {
       const data = new Date(i);
@@ -87,10 +87,10 @@ class Main extends React.Component {
     };
 
 
-    geraGrafico = async data => {
+    makeGraphic = async data => {
       let graphic = [];
       const temp = new Date();
-      for (let i = 0; i < data.days.length - 3; i++) {
+      for (let i = 0; i < data.days.length - 2; i++) {
         if(this.formatData(data.days[i]) === temp.getDate()) {
           return graphic.push({
             day: this.formatData(data.days[i])
@@ -100,7 +100,7 @@ class Main extends React.Component {
           name: this.formatData(data.days[i]),
           tmax: this.formatTemp(data.points.forecast.temperature_daily_max[i]),
           tmin: this.formatTemp(data.points.forecast.temperature_daily_min[i]),
-          hum: this.formatTemp(data.points.forecast.rel_humidity_daily_avg[i]) 
+          hum: this.formatHum       (data.points.forecast.rel_humidity_daily_avg[i]) 
         });
       }
       console.log(graphic);
@@ -134,14 +134,23 @@ class Main extends React.Component {
               <RowTmin>
                 <Th>
                   {this.state.graphic.map((item,id) => {
-                    return <Td style={{color: '#59EBFF'}} key={id}><i style={{marginRight: 10}} class="fas fa-caret-down"></i>{item.tmin}°C</Td>
+                    return <Td style={{color: '#39EBFF'}} key={id}><i style={{marginRight: 10}} class="fas fa-caret-down"></i>{item.tmin}°C</Td>
                   })}
                 </Th>
               </RowTmin>
               <RowHum>
                 <Th>
                   {this.state.graphic.map((item,id) => {
-                    return <Td style={{color: '#525252'}} key={id}>{item.hum}%</Td>
+                    return (
+                      <>
+                      
+                      <span style={{ backgroundColor: '#3FA2F7', width: '3px', 'height': '13px', marginRight: 3 }}></span>
+                      <span style={{ backgroundColor: '#3FA2F7', width: '3px', 'height': '13px', marginRight: 3   }}></span>
+                      <span style={{ backgroundColor: '#3FA2F7', width: '3px', 'height': '13px',  marginRight: 3  }}></span>
+                      <span style={{ backgroundColor: '#3FA2F7', width: '3px', 'height': '13px',  marginRight: 3  }}></span>
+                      <span style={{ backgroundColor: '#3FA2F7', width: '3px', 'height': '13px', marginRight: '-50px'  }}></span>
+                      
+                      <Td style={{ color: '#323232' }} key={id}>{item.hum}%</Td></>)
                   })}
                 </Th>
               </RowHum>
