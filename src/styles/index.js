@@ -130,7 +130,7 @@ const Tbody = styled.tbody`
 
 const Th = styled.th`
   width: 95%;
-  height: 100%;
+  height: 100% !important;
   margin: 0 auto;
   flex-direction: row;
   justify-content: center;

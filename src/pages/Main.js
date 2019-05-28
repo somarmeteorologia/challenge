@@ -66,46 +66,47 @@ class Main extends React.Component {
   }
 
 
-    formatTemp = temp => {
-      const n_temp = temp.toString();
-      return n_temp.substr(0, 2);
-    };
-    
-    formatHum = hum => {
-      const og = Math.pow(10, 0)
-      console.log(Math.floor(hum * og) / og);
-      return Math.floor(hum * og) / og;
-    };
-
-    formatData = i => {
-      const data = new Date(i);
-      const day = data.getDate();
-      const month = data.getMonth() + 1;
-      const year = data.getFullYear();
+  formatTemp = temp => {
+    const n_temp = temp.toString();
+    return n_temp.substr(0, 2);
+  };
   
-      return day + "/" + month + "/" + year;
-    };
+  formatHum = hum => {
+    const og = Math.pow(10, 0)
+    console.log(Math.floor(hum * og) / og);
+    return Math.floor(hum * og) / og;
+  };
 
+  formatData = i => {
+    const week = ["Domingo", "Segunda-Feira", "Terça-Feira", "Quarta-Feira", "Quinta-Feira", "Sexta-Feira", "Sábado"];
+    const monthF = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+    const data = new Date(i);
+    const dayOfWeek = data.getDay();
+    const day = data.getDate();
+    const month = data.getMonth();
+    const result = { 'weekDay': week[dayOfWeek], 'day': day, 'month': monthF[month] };
+    return result;
+  };
 
-    makeGraphic = async data => {
-      let graphic = [];
-      const temp = new Date();
-      for (let i = 0; i < data.days.length - 2; i++) {
-        if(this.formatData(data.days[i]) === temp.getDate()) {
-          return graphic.push({
-            day: this.formatData(data.days[i])
-          });
-        }
-        graphic.push({
-          name: this.formatData(data.days[i]),
-          tmax: this.formatTemp(data.points.forecast.temperature_daily_max[i]),
-          tmin: this.formatTemp(data.points.forecast.temperature_daily_min[i]),
-          hum: this.formatHum       (data.points.forecast.rel_humidity_daily_avg[i]) 
+  makeGraphic = async data => {
+    let graphic = [];
+    const temp = new Date();
+    for (let i = 0; i < data.days.length - 3; i++) {
+      if(this.formatData(data.days[i]) === temp.getDate()) {
+        return graphic.push({
+          day: this.formatData(data.days[i])
         });
       }
-      console.log(graphic);
-      this.setState({ graphic });
-    };
+      graphic.push({
+        name: this.formatData(data.days[i]),
+        tmax: this.formatTemp(data.points.forecast.temperature_daily_max[i]),
+        tmin: this.formatTemp(data.points.forecast.temperature_daily_min[i]),
+        hum: this.formatHum(data.points.forecast.rel_humidity_daily_avg[i]) 
+      });
+    }
+    console.log(graphic);
+    this.setState({ graphic });
+  };
   
   render() {
 
@@ -119,7 +120,7 @@ class Main extends React.Component {
             <RowDate>
               <ThTop>
                 {this.state.graphic.map((item,id) => {
-                  return <Th style={{color: '#333'}} key={id}><br/>{item.name}</Th>
+                  return <Th style={{color: '#333', height:'100%'}} key={id}><br/>{item.name.weekDay}<br />{ item.name.day } {item.name.month}</Th>
                 })}
               </ThTop>
             </RowDate>
@@ -142,15 +143,65 @@ class Main extends React.Component {
                 <Th>
                   {this.state.graphic.map((item,id) => {
                     return (
-                      <>
-                      
-                      <span style={{ backgroundColor: '#3FA2F7', width: '3px', 'height': '13px', marginRight: 3 }}></span>
-                      <span style={{ backgroundColor: '#3FA2F7', width: '3px', 'height': '13px', marginRight: 3   }}></span>
-                      <span style={{ backgroundColor: '#3FA2F7', width: '3px', 'height': '13px',  marginRight: 3  }}></span>
-                      <span style={{ backgroundColor: '#3FA2F7', width: '3px', 'height': '13px',  marginRight: 3  }}></span>
-                      <span style={{ backgroundColor: '#3FA2F7', width: '3px', 'height': '13px', marginRight: '-50px'  }}></span>
-                      
-                      <Td style={{ color: '#323232' }} key={id}>{item.hum}%</Td></>)
+                      <Td>
+                        {item.hum > 0 && item.hum <= 20 ? 
+                          <>
+                            <span style={{ backgroundColor: '#3FA2F7', width: '3px', 'height': '13px', marginRight: 3 }}></span>
+                            <span style={{ backgroundColor: '#C4C4C4', width: '3px', 'height': '13px', marginRight: 3   }}></span>
+                            <span style={{ backgroundColor: '#C4C4C4', width: '3px', 'height': '13px',  marginRight: 3  }}></span>
+                            <span style={{ backgroundColor: '#C4C4C4', width: '3px', 'height': '13px',  marginRight: 3  }}></span>
+                            <span style={{ backgroundColor: '#C4C4C4', width: '3px', 'height': '13px'}}></span>
+                          </> 
+                          : 
+                          null
+                        }
+                        {item.hum > 20 && item.hum <= 40 ? 
+                          <>
+                            <span style={{ backgroundColor: '#3FA2F7', width: '3px', 'height': '13px', marginRight: 3 }}></span>
+                            <span style={{ backgroundColor: '#3FA2F7', width: '3px', 'height': '13px', marginRight: 3   }}></span>
+                            <span style={{ backgroundColor: '#C4C4C4', width: '3px', 'height': '13px',  marginRight: 3  }}></span>
+                            <span style={{ backgroundColor: '#C4C4C4', width: '3px', 'height': '13px',  marginRight: 3  }}></span>
+                            <span style={{ backgroundColor: '#C4C4C4', width: '3px', 'height': '13px'}}></span>
+                          </> 
+                          : 
+                          null
+                        }
+                        {item.hum > 40 && item.hum <= 60 ? 
+                          <>
+                            <span style={{ backgroundColor: '#3FA2F7', width: '3px', 'height': '13px', marginRight: 3 }}></span>
+                            <span style={{ backgroundColor: '#3FA2F7', width: '3px', 'height': '13px', marginRight: 3   }}></span>
+                            <span style={{ backgroundColor: '#3FA2F7', width: '3px', 'height': '13px',  marginRight: 3  }}></span>
+                            <span style={{ backgroundColor: '#C4C4C4', width: '3px', 'height': '13px',  marginRight: 3  }}></span>
+                            <span style={{ backgroundColor: '#C4C4C4', width: '3px', 'height': '13px'}}></span>
+                          </> 
+                          : 
+                          null
+                        }
+                        {item.hum > 60 && item.hum <= 80 ? 
+                          <>
+                            <span style={{ backgroundColor: '#3FA2F7', width: '3px', 'height': '13px', marginRight: 3 }}></span>
+                            <span style={{ backgroundColor: '#3FA2F7', width: '3px', 'height': '13px', marginRight: 3   }}></span>
+                            <span style={{ backgroundColor: '#3FA2F7', width: '3px', 'height': '13px',  marginRight: 3  }}></span>
+                            <span style={{ backgroundColor: '#3FA2F7', width: '3px', 'height': '13px',  marginRight: 3  }}></span>
+                            <span style={{ backgroundColor: '#C4C4C4', width: '3px', 'height': '13px'}}></span>
+                          </> 
+                          : 
+                          null
+                        }
+                        {item.hum > 80 && item.hum <= 100 ? 
+                          <>
+                            <span style={{ backgroundColor: '#3FA2F7', width: '3px', 'height': '13px', marginRight: 3 }}></span>
+                            <span style={{ backgroundColor: '#3FA2F7', width: '3px', 'height': '13px', marginRight: 3   }}></span>
+                            <span style={{ backgroundColor: '#3FA2F7', width: '3px', 'height': '13px',  marginRight: 3  }}></span>
+                            <span style={{ backgroundColor: '#3FA2F7', width: '3px', 'height': '13px',  marginRight: 3  }}></span>
+                            <span style={{ backgroundColor: '#3FA2F7', width: '3px', 'height': '13px'}}></span>
+                          </> 
+                          : 
+                          null
+                        }
+                        <Td style={{width: '25%', color: '#323232', margin: '0px 0px 0px 0px'}} key={id}>{item.hum}%</Td>
+                      </Td>
+                      )
                   })}
                 </Th>
               </RowHum>
