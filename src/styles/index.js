@@ -9,17 +9,18 @@ const Root = styled.div`
   justify-content: center;
   margin: 0;
   padding: 0;
-  background-color: #333;
+  background-color: #FFF;
 `;
 
 const Title = styled.h1`
   font-size: 3.5em;
   letter-spacing: 5px;
-  font-weight: 300;
-  color: #fff;
+  margin-bottom: 15px;
+  font-family: Roboto;
+  font-weight: 400;
+  color: #ff440;
   :hover {
-    color: white;
-    letter-spacing: 7px;
+    letter-spacing: 3px;
   }
   @media screen and (max-width: 400px) {
     font-size: 30px;
@@ -35,19 +36,21 @@ const Button = styled.button`
   background: transparent;
   border-radius: 6px;
   border: 2px solid palevioletred;
-  color: white;
+  color: black;
   margin: 0 1em;
   padding: 0.25em 1em;
   margin-top: 15px;
   cursor: pointer;
   :hover {
-    border-color: white;
+    border-color: #990;
   }
 `
 const Subtitle = styled.small`
-  color: dark;
-  font-weight: 300;
-  margin: 10px;
+  color: #776;
+  font-weight: 500;
+  letter-spacing: 3px;
+  margin: 15px;
+  font-family: Roboto;
   @media screen and (max-width: 400px) {
     font-size: 15px;
     padding: 10px;
@@ -67,6 +70,9 @@ const RootMain = styled.div`
   margin: 0 auto;
   margin-top: 5%;
   padding: 10px;
+  @media (max-width: 700px) {
+    width: 90vw;
+  }
 `;
 
 const Table = styled.table`
@@ -129,7 +135,7 @@ const Tbody = styled.tbody`
 `;
 
 const Th = styled.th`
-  width: 95%;
+  width: 100%;
   height: 100% !important;
   margin: 0 auto;
   flex-direction: row;
@@ -137,6 +143,17 @@ const Th = styled.th`
   align-items: center;
   display: flex;
   font-family: Roboto;
+  @media (max-width: 700px) {
+    width: 90%;
+    margin: 0 auto;
+    font-size: 10px;
+  }
+`;
+
+const ThHum = styled(Th)`
+  @media (max-width: 700px) {
+    flex-direction: row;
+  }
 `;
 
 const ThTop = styled(Th)`
@@ -148,6 +165,11 @@ const ThTop = styled(Th)`
   font-weight: bold;
   font-size: 14px;
   line-height: 16px;
+  @media (max-width: 700px) {
+    width: 100%;
+    margin: 0 auto;
+    font-size: 10px;
+  }
 `;
 
 const Td = styled.td`
@@ -161,6 +183,9 @@ const Td = styled.td`
   font-weight: bold;
   font-size: 14px;
   line-height: 16px;
+  @media (max-width: 700px) {
+    font-size: 10px;
+  }
 `;
 
 const ContainerGraphic = styled.div`
@@ -170,7 +195,13 @@ const ContainerGraphic = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  @media (max-width: 700px) {
+    font-size: 10px;
+    margin-left: -10%;
+    width: 100vw;
+    flex-direction: row;
+  }
 `;
 
 
-export { Root, Title, Button, Subtitle, RootMain, Table, RowDate, RowTmax, RowTmin, RowHum, Tbody, Th, ThTop, Td, ContainerGraphic  };
+export { Root, Title, Button, Subtitle, RootMain, Table, RowDate, RowTmax, RowTmin, RowHum, Tbody, Th, ThHum, ThTop, Td, ContainerGraphic  };
