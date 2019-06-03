@@ -34,9 +34,11 @@ class Main extends React.Component {
         .then(resp => {
           // handle success
           this.makeGraphic(resp.data);
+          this.setState({ data: resp.data , loaded: true });
         })
         .then(resp => {
-          this.setState({ data: resp.data , loaded: true });
+          console.lo('Onde estava o erroo');
+          //this.setState({ data: resp.data , loaded: true });
         })
         .catch(function (error) {
           // handle error
