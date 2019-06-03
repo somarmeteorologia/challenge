@@ -75,7 +75,7 @@ const RootMain = styled.div`
   }
 `;
 
-const Table = styled.table`
+const TableStyled = styled.table`
   width: 100%;
   min-height: 50%;
   display: flex;
@@ -204,4 +204,4 @@ const ContainerGraphic = styled.div`
 `;
 
 
-export { Root, Title, Button, Subtitle, RootMain, Table, RowDate, RowTmax, RowTmin, RowHum, Tbody, Th, ThHum, ThTop, Td, ContainerGraphic  };
+export { Root, Title, Button, Subtitle, RootMain, TableStyled, RowDate, RowTmax, RowTmin, RowHum, Tbody, Th, ThHum, ThTop, Td, ContainerGraphic  };
