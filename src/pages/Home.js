@@ -5,7 +5,7 @@ import { Root, Title, Button, Subtitle } from '../styles';
 const Home = () => {
   return (
     <Root className='root-div'>
-      <img src={require('../assets/images/cloud-159394_960_720.png')} alt="image"  className="logo-image"/>
+      <img src={require('../assets/images/cloud-159394_960_720.png')} alt="logo da home"  className="logo-image"/>
       <Title>Minha Semana</Title>
       <Subtitle>Previsões meteorológicas de acordo com sua localidade</Subtitle>
       <Button>

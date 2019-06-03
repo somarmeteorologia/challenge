@@ -1,8 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 
-import { Redirect } from 'react-router-dom';
-
 import Loading from '../components/Loading';
 import Graphic from '../components/Graphic';
 import Table from '../components/Table';
@@ -10,7 +8,7 @@ import Table from '../components/Table';
 import { RootMain, ContainerGraphic } from '../styles';
 import '../index.css';
 
-import { formatData, formatTemp, formatHum } from '../helpers/utils';
+//import { formatData, formatTemp, formatHum } from '../helpers/utils';
 class Main extends React.Component {
   constructor(props) {
     super();
@@ -35,8 +33,10 @@ class Main extends React.Component {
         }})
         .then(resp => {
           // handle success
-          this.setState({ data: resp.data , loaded: true });
           this.makeGraphic(resp.data);
+        })
+        .then(resp => {
+          this.setState({ data: resp.data , loaded: true });
         })
         .catch(function (error) {
           // handle error
@@ -46,29 +46,48 @@ class Main extends React.Component {
       });
     
   }
+  formatTemp = (temp) => {
+    const n_temp = temp.toString();
+    return n_temp.substr(0, 2);
+  };
+  
+  formatHum = (hum) => {
+    const og = Math.pow(10, 0)
+    return Math.floor(hum * og) / og;
+  };
+  
+  formatData = (i) => {
+    const week = ["Domingo", "Segunda-Feira", "Terça-Feira", "Quarta-Feira", "Quinta-Feira", "Sexta-Feira", "Sábado"];
+    const monthF = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+    const data = new Date(i);
+    const dayOfWeek = data.getDay();
+    const day = data.getDate();
+    const month = data.getMonth();
+    const result = { 'weekDay': week[dayOfWeek], 'day': day, 'month': monthF[month] };
+    return result;
+  };
+  
 
   makeGraphic = async data => {
     let graphic = [];
     const temp = new Date();
     for (let i = 0; i < data.days.length - 3; i++) {
-      if(formatData(data.days[i]) === temp.getDate()) {
+      if(this.formatData(data.days[i]) === temp.getDate()) {
         return graphic.push({
-          day: formatData(data.days[i])
+          day: this.formatData(data.days[i])
         });
       }
       graphic.push({
-        name: formatData(data.days[i]),
-        tmax: formatTemp(data.points.forecast.temperature_daily_max[i]),
-        tmin: formatTemp(data.points.forecast.temperature_daily_min[i]),
-        hum: formatHum(data.points.forecast.rel_humidity_daily_avg[i]) 
+        name: this.formatData(data.days[i]),
+        tmax: this.formatTemp(data.points.forecast.temperature_daily_max[i]),
+        tmin: this.formatTemp(data.points.forecast.temperature_daily_min[i]),
+        hum: this.formatHum(data.points.forecast.rel_humidity_daily_avg[i]) 
       });
     }
     await this.setState({ graphic });
   };
   
   render() {
-
-    if(!!this.props.logged) return <Redirect to="/" />
 
     return (
       <RootMain>

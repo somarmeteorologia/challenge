@@ -5,12 +5,15 @@ export default class Table extends Component {
   constructor(props) {
     super();
     this.state = {
-      graphic: this.props.graphic
+      graphic: []
     }
   }
 
   componentDidMount(props) {
-    console.log(props);
+    const { graphic } = this.props;
+    console.log(graphic)
+
+    this.setState({ graphic });
   }
   render() {
     return(
