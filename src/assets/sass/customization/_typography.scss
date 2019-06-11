@@ -1,0 +1,27 @@
+// Dubai font
+
+@font-face {
+  font-family: "Dubai";
+  src: url("../fonts/DubaiW23-Bold.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/DubaiW23-Bold.woff") format("woff"),
+    url("../fonts/DubaiW23-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Dubai";
+  src: url("../fonts/DubaiW23-Regular.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/DubaiW23-Regular.woff") format("woff"),
+    url("../fonts/DubaiW23-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Dubai";
+  src: url("../fonts/DubaiW23-Light.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/DubaiW23-Light.woff") format("woff"),
+    url("../fonts/DubaiW23-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+

@@ -1,0 +1,46 @@
+$magenta: #ed184a !default;
+$deep-purple: #2e1a46 !default;
+$green: #76bc21 !default;
+$yellow: #fdef77 !default;
+$cyan: #5fd0df !default;
+
+// Bootstrap colour palette
+$blue: #007bff !default;
+$red: #f96166 !default;
+$softred: #ffb1af !default;
+$gray: #6c757d !default;
+$dark-gray: #343a40 !default;
+$light-gray: #f8f9fa !default;
+
+$colors: () !default;
+$colors: map-merge(
+  (
+    "magenta": $magenta,
+    "deep-purple": $deep-purple,
+    "blue": $blue,
+    "green": $green,
+    "cyan": $cyan,
+    "yellow": $yellow,
+    "red": $red,
+    "gray": $gray,
+    "dark-gray": $dark-gray,
+    "light-gray": $light-gray
+  ),
+  $colors
+);
+
+$dark: $deep-purple !default;
+$primary: $blue !default;
+$secondary: $blue !default;
+$success: $green !default;
+$warning: $yellow !default;
+$info: $yellow !default;
+$pink: $magenta !default;
+
+// Typography
+$font-family-base: "Dubai", "Roboto", "Helvetica Neue", Arial, sans-serif !default;
+$font-size-base: 1rem !default;
+$font-size: 1rem !default;
+$line-height-base: 1.25 !default;
+$headings-font-weight: 700 !default;
+$font-weight-bold: 700 !default;

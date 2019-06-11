@@ -1,0 +1,64 @@
+
+.nav-link {
+  border: inherit;
+  position: relative;
+}
+
+.nav-active-border {
+  .nav-link {
+    &:before {
+      content: "";
+      position: absolute;
+      @include transition(all 0.2s ease-in-out);
+      left: 50%;
+      right: 50%;
+      bottom: 0;
+      border-bottom-width: 3px;
+      border-bottom-style: solid;
+      border-bottom-color: transparent;
+    }
+    &:hover:before,
+    &:focus:before,
+    &.active:before {
+      left: 0%;
+      right: 0%;
+      border-bottom-color: inherit;
+    }
+  }
+  &.top {
+    .nav-link:before {
+      bottom: auto;
+      top: 0;
+    }
+  }
+  &.left {
+    .nav-link {
+      float: none;
+      &:before {
+        border-bottom-width: 0;
+        right: auto;
+        border-left-width: 3px;
+        border-left-style: solid;
+        border-left-color: transparent;
+        left: 0;
+        top: 50%;
+        bottom: 50%;
+      }
+      &:hover:before,
+      &:focus:before,
+      &.active:before {
+        top: 0%;
+        bottom: 0%;
+        border-left-color: inherit;
+      }
+    }
+    &.right {
+      .nav-link {
+        &:before {
+          left: auto;
+          right: 0;
+        }
+      }
+    }
+  }
+}
