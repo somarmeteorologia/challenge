@@ -135,11 +135,11 @@ class ForecastList extends Component {
       )
     }
     return (
-      <Container key="transactions-list-container" fluid className="container-limited">
+      <Container fluid className="container-limited">
         <Row>
           <Col md={8}>
             <h3 className="text-secondary font-weight-bold mt-4">
-             Weather Forecast for currente location
+             Weather Forecast for current location
             </h3>
             <h4 className="text-secondary font-weight-light mb-3">
             Choose how many days:
