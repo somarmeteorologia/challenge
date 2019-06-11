@@ -65,8 +65,10 @@ class ForecastList extends Component {
       if(days && params.latitude) {
         const endpoint = `/${days}days`;
         this.API.get(endpoint, { params }).then(response => {
-          this.setState({ showSpinner: false });
-         this.setState({forecast: this.formatForecast(response.data)})
+         this.setState({
+           forecast: this.formatForecast(response.data),
+           showSpinner: false
+          })
         });
       }
     }
