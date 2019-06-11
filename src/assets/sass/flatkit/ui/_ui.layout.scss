@@ -9,18 +9,6 @@ body {
   position: relative;
 }
 
-.app-aside {
-  position: fixed !important;
-  z-index: 1030;
-  float: left;
-  height: 100%;
-}
-
-.app-content {
-  box-shadow: none;
-  @include clearfix();
-}
-
 .app-body {
   position: relative;
   min-height: 100vh;
