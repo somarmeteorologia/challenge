@@ -1,0 +1,54 @@
+/*layout*/
+
+html {
+  height: 100%;
+}
+body {
+  height: auto;
+  min-height: 100%;
+  position: relative;
+}
+
+.app-body {
+  position: relative;
+  min-height: 100vh;
+}
+
+.app-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: inherit;
+  z-index: 1020;
+  ~ .app-body {
+    padding-top: $navbar-height;
+  }
+  &.navbar-md ~ .app-body {
+    padding-top: $navbar-md-height;
+  }
+  &.navbar-sm ~ .app-body {
+    padding-top: $navbar-sm-height;
+  }
+}
+
+.app-body-inner {
+  padding-top: inherit !important;
+  padding-bottom: inherit !important;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  overflow: auto;
+}
+
+.app-footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  margin: inherit;
+  &:not(.hide) ~ .app-body {
+    padding-bottom: $footer-height;
+  }
+}

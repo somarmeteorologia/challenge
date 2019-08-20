@@ -1,0 +1,49 @@
+.react-select__control {
+  background-color: $input-bg !important;
+  color: $input-color !important;
+}
+
+.react-select__control--is-focused {
+  border-color: $input-focus-border-color !important;
+  box-shadow: $input-focus-box-shadow !important;
+}
+
+.react-select__indicator-separator {
+  display: none !important;
+}
+
+.react-select__menu {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  border-radius: 0 0 4px 4px !important;
+  border: 1px solid #ccc !important;
+  border-top-color: #e6e6e6 !important;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06) !important;
+}
+
+.react-select__menu-list {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.react-select__option {
+  color: #666666 !important;
+  cursor: pointer !important;
+  padding: 8px 10px !important;
+}
+
+.react-select__option--is-selected {
+  background-color: $secondary !important;
+  color: #fff !important;
+}
+
+.react-select__option--is-focused {
+  background-color: lighten($secondary, 75) !important;
+  color: $input-color !important;
+
+  &.react-select__option--is-selected {
+    background-color: darken($secondary, 5) !important;
+    color: #fff !important;
+  }
+}
