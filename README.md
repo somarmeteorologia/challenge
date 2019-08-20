@@ -40,3 +40,5 @@ O **APP Minha Semana** se consiste nos seguintes passos,
 <img src="https://i.imgur.com/IFVoz14.png"/>
 
 [Acesse aqui o protótipo.](https://www.figma.com/file/QflwpTxjCgrYd3akVjOheq/Challenge?node-id=7753%3A4396)
+
+#### Lembrando, valorizamos muito mais que você se preocupe com a qualidade e as melhores práticas do que o tempo de entrega do desafio, use o tempo que achar necessário pra se comprometer com o mesmo da melhor maneira.
