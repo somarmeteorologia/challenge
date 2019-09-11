@@ -62,6 +62,156 @@ A finalidade do challenge é criar uma API REST que cumpra as seguintes especifi
  6. Se quiser faz um desafio bônus pode implementar um endpoint que receba multiplos pontos para pesquisa, por exemplo:
     `{"Cidade": ["SaoPaulo", "RioDeJaneiro"]}` e disponibilizar todos os valores na mesma resposta. 
 
+### Modelo do json
+Como é difícil encontrar um modelo de json que segue essa ideia vamos explicar um pouquinho como ele funciona e adicionar
+ um exemplo:
+```json
+{
+    "periods": [
+        "2019-09-11 06:00",
+        "2019-09-11 07:00",
+        "2019-09-11 08:00",
+        "2019-09-11 09:00",
+        "2019-09-11 10:00",
+        "2019-09-11 11:00",
+        "2019-09-11 12:00",
+        "2019-09-11 13:00",
+        "2019-09-11 14:00",
+        "2019-09-11 15:00",
+        "2019-09-11 16:00",
+        "2019-09-11 17:00"
+    ],
+    "points": {
+        "location": {
+            "latitude": -23.54,
+            "longitude": -46.63,
+            "elevation": 626,
+            "sunrise": "06:07",
+            "sunset": "17:59",
+            "timezone": -3,
+            "ref": "None"
+        },
+        "observed": {
+            "precipitation": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "temperature": [
+                21.399999618530273,
+                20.799999237060547,
+                20.100000381469727,
+                19.899999618530273,
+                21.200000762939453,
+                23.399999618530273,
+                26.299999237060547,
+                29.700000762939453,
+                30.899999618530273,
+                31.899999618530273,
+                33.20000076293945,
+                33.099998474121094
+            ],
+            "rel_humidity": [
+                58.0,
+                60.0,
+                63.0,
+                66.0,
+                63.0,
+                52.0,
+                41.0,
+                31.0,
+                28.0,
+                24.0,
+                24.0,
+                21.0
+            ],
+            "wind_speed": [
+                0.10000000149011612,
+                0.20000000298023224,
+                0.20000000298023224,
+                0.20000000298023224,
+                0.4000000059604645,
+                1.7000000476837158,
+                1.399999976158142,
+                2.0,
+                2.299999952316284,
+                1.600000023841858,
+                1.2999999523162842,
+                1.2999999523162842
+            ],
+            "wind_direction": [
+                279,
+                288,
+                246,
+                197,
+                50,
+                173,
+                26,
+                132,
+                67,
+                336,
+                39,
+                113
+            ],
+            "wind_gust": [
+                2.0999999046325684,
+                1.5,
+                1.7999999523162842,
+                1.2999999523162842,
+                1.899999976158142,
+                3.5,
+                3.5999999046325684,
+                4.099999904632568,
+                5.699999809265137,
+                5.099999904632568,
+                5.099999904632568,
+                4.599999904632568
+            ],
+            "pressure": [
+                1014,
+                1014,
+                1014,
+                1015,
+                1015,
+                1014,
+                1014,
+                1012,
+                1011,
+                1010,
+                1009,
+                1008
+            ]
+        }
+    },
+    "meta": {
+        "updated_at": "2019-09-11 17:42",
+        "units": {
+            "precipitation": "mm.period",
+            "temperature": "C",
+            "humidity": "%",
+            "wind_speed": "m/s",
+            "wind_direction": "deg",
+            "pressure": "hpa"
+        }
+    }
+}
+```
+
+Quando você realiza a transposição para tabela a relação que deve ser respeita é a posição que você se encontra dentro
+ da chave `periods` para as demais, por exemplo:
+ - `"2019-09-11 06:00" ["periods"][0] >> ["temperature"][0]: 21.399999618530273`
+ - `"2019-09-11 16:00" ["periods"][10] >> ["pressure"][10]: 1009`
+
+
 Obs: Os arquivos estão congelados em um momento do tempo, sendo assim, lembre-se de validar essa condições.
 
 ## Recomendações
