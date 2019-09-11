@@ -1,0 +1,6 @@
+# Config vscode
+.vscode/
+
+# Config PyCharm
+.idea/
+
