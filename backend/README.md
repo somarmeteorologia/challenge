@@ -114,5 +114,5 @@ Se tiver vontade de aprimorar alguma característica do desafio fique a vontade.
 w6kgdW0gdGlwbyBkZSBudXZlbSBxdWUgY29icmUgdW1hIGFyZWEgZ3JhbmRlIGlndWFsIGVzc2UgcHJvamV0bwo
 
 <p align="center">
-  <img src="./challenge_accepted.jpg" alt="Challange Accepted" />
+    <img src="/backend/challenge-accepted.png" alt="Challenge Accepted">
 </p>
