@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
-import apiWeather from "../../service/apiWeather";
 import {
   Container,
   Content,
@@ -45,7 +44,7 @@ function Home({ history }) {
 
     history.push({
       pathname: "/week",
-      state: { coords: stateCoords }
+      state: { coords: stateCoords, city }
     });
   }
 

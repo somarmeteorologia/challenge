@@ -12,18 +12,18 @@ import {
   TempList,
   Days,
   Text,
-  List,
   ContentLoading,
   ListDays
 } from "./styles";
 import api from "../../service/api";
 import Example from "../../components/ChartTemp";
 import Loading from "../../components/Loading";
+import List from "../../components/List";
 
 function Charts({ history }) {
-  console.log("", history);
-  const [latitude, getLatitude] = useState();
-  const [longitude, getLongitude] = useState();
+  const [latitude, getLatitude] = useState(history.location.state.coords.lat);
+  const [longitude, getLongitude] = useState(history.location.state.coords.lon);
+  const [city, getCity] = useState(history.location.city);
   const [loading, setLoading] = useState(true);
   const [temps, getTemps] = useState([]);
 
@@ -61,74 +61,14 @@ function Charts({ history }) {
     Promise.all([getLocation(), LoadData()]);
   }, []);
 
-  function renderWeekList() {
-    const weeks = temps.map(item =>
-      item.days.map(day => (
-        <ListDays key={day}>
-          <Days>{moment(day).format("dddd")}</Days>
-          <span>{moment(day).format("LL")}</span>
-        </ListDays>
-      ))
-    );
-    return weeks;
-  }
-
-  function renderTempMax() {
-    const temp = temps.map(item =>
-      item.max.map(max => (
-        <List key={max}>
-          <Text max="true">
-            <i className="fas fa-caret-up" />
-            {parseInt(max)}ºC
-          </Text>
-        </List>
-      ))
-    );
-    return temp;
-  }
-
-  function renderTempMin() {
-    const temp = temps.map(item =>
-      item.min.map(min => (
-        <List key={min}>
-          <Text min="true" key={min}>
-            <i className="fas fa-caret-down" />
-            {parseInt(min)}ºC
-          </Text>
-        </List>
-      ))
-    );
-
-    return temp;
-  }
-
-  function formatNumber(temp) {
-    temp.toFixed();
-  }
-
   function createObjData(data) {
     // @params data - response da api
 
-    // cria um novo obj
-    const objData = {
-      max: data.points.forecast.temperature_daily_max,
-      min: data.points.forecast.temperature_daily_min,
-      humidity: data.points.forecast.rel_humidity_daily_avg,
-      days: data.days
-    };
-
-    console.log(data);
-    // console.log(formatNumber());
-
-    // data.forEach(item => {
-
-    // });
-
-    // getTemps([objData]);
     getTemps(
       produce(temps, draft => {
         console.log("temp", temps, "draft", draft);
         console.log(data);
+
         Array(data).forEach((item, i) => {
           const min = item.points.forecast.temperature_daily_min.map(item =>
             item.toFixed()
@@ -142,12 +82,14 @@ function Charts({ history }) {
             item => item.toFixed()
           );
 
-          draft.push({
-            id: i,
-            max,
-            min,
-            humidity,
-            days: item.days
+          item.days.forEach((item, i) => {
+            draft.push({
+              date: moment(item).format("L"),
+              day: moment(item).format("dddd"),
+              humidity: humidity[i],
+              tempMax: max[i],
+              tempMin: min[i]
+            });
           });
         });
       })
@@ -156,21 +98,19 @@ function Charts({ history }) {
 
   console.log(temps);
 
-  return (
-    <Container>
-      <ContentList>
-        <HeaderList>{!loading && renderWeekList()}</HeaderList>
-        <TempList>
-          <Temp>{!loading && renderTempMax()}</Temp>
-          <Temp>{!loading && renderTempMin()}</Temp>
-        </TempList>
-      </ContentList>
-
-      {loading && (
+  if (loading) {
+    return (
+      <Container>
         <ContentLoading>
           <Loading show={loading} />
         </ContentLoading>
-      )}
+      </Container>
+    );
+  }
+
+  return (
+    <Container>
+      <List temps={temps} />
 
       <Example data={temps} />
     </Container>

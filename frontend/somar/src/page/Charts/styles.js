@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import media from "styled-media-query";
 import { colors } from "../../style/styles";
 
 export const Container = styled.div`
@@ -7,6 +8,11 @@ export const Container = styled.div`
   flex-direction: column;
   height: 40rem;
   padding: 7rem 10rem;
+
+  ${media.lessThan("medium")`
+    height: auto;
+    padding: 0;
+  `}
 `;
 
 export const ContentList = styled.div`
@@ -33,15 +39,6 @@ export const Temp = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-`;
-
-export const Days = styled.p`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.6rem;
-  color: ${colors.regular};
-  font-weight: 700;
 `;
 
 export const Text = styled.p`
