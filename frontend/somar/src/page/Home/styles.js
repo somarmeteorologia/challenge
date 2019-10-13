@@ -4,12 +4,8 @@ import { colors } from "../../style/styles";
 
 export const Container = styled.div`
   display: flex;
-  flex: 1;
-  height: 100vh;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
-  background-color: ${colors.background};
 
   ${media.lessThan("medium")`
     flex-direction: column;
@@ -19,14 +15,14 @@ export const Container = styled.div`
     display: flex;
     flex: 1;
   }
+`;
 
-  .footer {
-    display: flex;
-    flex: 1;
-    padding: 2rem 0;
-    justify-content: flex-end;
-    min-height: 6rem;
-  }
+export const Footer = styled.div`
+  display: flex;
+  flex: 1;
+  padding: 2rem 0;
+  justify-content: flex-end;
+  min-height: 4rem;
 `;
 
 export const Content = styled.div`

@@ -28,16 +28,17 @@ export default function Graphic({ data }) {
         >
           <CartesianGrid stroke="#f5f5f5" />
           <XAxis dataKey={"day"} />
-          <YAxis />
+          <YAxis unit="ºC" />
           <Tooltip />
           <Legend />
-          <Line dataKey="temp_max" stroke="#FF3232" />
-          <Line dataKey="temp_min" stroke="#00CCCC" />
+          <Line dataKey="temp_max" stroke="#FF3232" tickSize={12} unit="ºC" />
+          <Line dataKey="temp_min" stroke="#00CCCC" tickSize={12} unit="ºC" />
           <Bar
             dataKey="humidity"
-            barSize={17}
+            barSize={40}
             fill="#3FA2F7"
             label={{ position: "top" }}
+            unit="%"
           />
         </ComposedChart>
       </ResponsiveContainer>

@@ -5,41 +5,14 @@ import { colors } from "../../style/styles";
 export const Container = styled.div`
   display: flex;
   flex: 1;
+  height: 100vh;
   flex-direction: column;
-  padding: 2rem;
-  /* height: 40rem;
-  padding: 7rem 10rem; */
+  justify-content: center;
 
   ${media.lessThan("medium")`
     height: auto;
     padding: 0;
   `}
-`;
-
-export const ContentList = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-export const HeaderList = styled.div`
-  display: flex;
-  flex-direction: row;
-  background-color: ${colors.light};
-  padding: 1rem;
-  height: 10rem;
-`;
-
-export const TempList = styled.div`
-  display: flex;
-  flex-direction: column;
-  background-color: #fff;
-`;
-
-export const Temp = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
 `;
 
 export const Text = styled.p`
@@ -70,24 +43,10 @@ export const Text = styled.p`
     `}
 `;
 
-export const List = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 10rem;
-  width: 20rem;
-`;
-
 export const ContentLoading = styled.div`
   display: flex;
   height: 100vh;
   justify-content: center;
   align-items: center;
-`;
-
-export const ListDays = styled(List)`
-  flex-direction: column;
-
-  span {
-  }
+  background-color: ${colors.background};
 `;
