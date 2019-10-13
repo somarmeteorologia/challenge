@@ -25,6 +25,10 @@ function Week({ history }) {
     moment.locale("pt-br");
 
     async function LoadData() {
+      if (!latitude && !longitude) {
+        setError(true);
+      }
+
       await api
         .get(
           `/forecast/7days?latitude=${latitude}&longitude=${longitude}&city=${city}&reference=${city}`
