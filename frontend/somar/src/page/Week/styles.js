@@ -111,3 +111,18 @@ export const FooterHeader = styled.div`
     margin: 0;
   }
 `;
+
+export const ContentResetCity = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+
+  padding-bottom: 2rem;
+
+  a {
+    color: ${colors.regular};
+    text-decoration: underline;
+  }
+`;

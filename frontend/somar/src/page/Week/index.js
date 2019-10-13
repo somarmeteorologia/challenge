@@ -10,7 +10,8 @@ import {
   Footer,
   FooterList,
   FooterListItem,
-  FooterHeader
+  FooterHeader,
+  ContentResetCity
 } from "./styles";
 import api from "../../service/api";
 import Graphic from "../../components/Graphic";
@@ -121,12 +122,14 @@ function Week({ history }) {
       </ContentHeader>
       <List temps={temps} />
       <Graphic data={temps} />
+      <ContentResetCity>
+        <a href="/">Escolher outra cidade</a>
+      </ContentResetCity>
       <Footer>
         <FooterHeader>
           <h5>Leticia Monteiro</h5>
           <span>Front-End Developer</span>
         </FooterHeader>
-
         <FooterList>
           <FooterListItem>
             <a href="https://github.com/leticiamrosa">
