@@ -5,6 +5,7 @@ const colors = {
 
   regular: "#212121",
   light: "#ecf0f1",
+  header: "#EAEAEA",
   max: "#E86C60",
   min: "#59EBFF",
   background: "#2c3e50"

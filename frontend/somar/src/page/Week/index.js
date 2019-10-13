@@ -4,61 +4,43 @@ import PropTypes from "prop-types";
 import produce from "immer";
 import "moment/locale/pt-br";
 import moment from "moment";
-import {
-  Container,
-  ContentList,
-  HeaderList,
-  Temp,
-  TempList,
-  Days,
-  Text,
-  ContentLoading,
-  ListDays
-} from "./styles";
+import { Container, ContentLoading } from "./styles";
 import api from "../../service/api";
-import Example from "../../components/ChartTemp";
+import Graphic from "../../components/Graphic";
 import Loading from "../../components/Loading";
 import List from "../../components/List";
 
-function Charts({ history }) {
-  const [latitude, getLatitude] = useState(history.location.state.coords.lat);
-  const [longitude, getLongitude] = useState(history.location.state.coords.lon);
-  const [city, getCity] = useState(history.location.city);
+function Week({ history }) {
+  const { state } = history.location;
+
+  const latitude = state.coords.lat;
+  const longitude = state.coords.lon;
+  const city = state.city;
+
   const [loading, setLoading] = useState(true);
   const [temps, getTemps] = useState([]);
-
-  async function getLocation() {
-    await navigator.geolocation.getCurrentPosition(location => {
-      return (
-        getLongitude(location.coords.longitude),
-        getLatitude(location.coords.latitude)
-      );
-    });
-  }
 
   useEffect(() => {
     moment.locale("pt-br");
 
     async function LoadData() {
-      if (latitude && longitude) {
-        await api
-          .get(
-            `/forecast/7days?latitude=${latitude}&longitude=${longitude}&city=SaoPaulo-SP&reference=Somar`
-          )
-          .then(response => {
-            createObjData(response.data);
-          })
-          .then(() => {
-            console.log("estou aqui");
-            setLoading(false);
-          })
-          .catch(error => {
-            console.log(error);
-          });
-      }
+      await api
+        .get(
+          `/forecast/7days?latitude=${latitude}&longitude=${longitude}&city=${city}&reference=${city}`
+        )
+        .then(response => {
+          createObjData(response.data);
+        })
+        .then(() => {
+          console.log("estou aqui");
+          setLoading(false);
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
 
-    Promise.all([getLocation(), LoadData()]);
+    LoadData();
   }, []);
 
   function createObjData(data) {
@@ -87,8 +69,8 @@ function Charts({ history }) {
               date: moment(item).format("L"),
               day: moment(item).format("dddd"),
               humidity: humidity[i],
-              tempMax: max[i],
-              tempMin: min[i]
+              temp_max: max[i],
+              temp_min: min[i]
             });
           });
         });
@@ -97,24 +79,22 @@ function Charts({ history }) {
   }
 
   console.log(temps);
+  console.log(history.location.state);
 
   if (loading) {
     return (
-      <Container>
-        <ContentLoading>
-          <Loading show={loading} />
-        </ContentLoading>
-      </Container>
+      <ContentLoading>
+        <Loading show={loading} />
+      </ContentLoading>
     );
   }
 
   return (
     <Container>
       <List temps={temps} />
-
-      <Example data={temps} />
+      <Graphic data={temps} />
     </Container>
   );
 }
 
-export default withRouter(Charts);
+export default withRouter(Week);

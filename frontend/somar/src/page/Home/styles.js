@@ -52,7 +52,8 @@ export const Label = styled.label`
   font-weight: 300;
   line-height: 1.8rem;
   padding-bottom: 0.4rem;
-  color: ${colors.primaryLight};
+  color: ${colors.regular};
+  margin: 0;
 `;
 
 export const Input = styled.input`
@@ -62,8 +63,8 @@ export const Input = styled.input`
   color: ${colors.regular};
   font-size: 1.2rem;
   background-color: #fff;
-  border: 1px solid #fff;
-  border-bottom: 1px solid black;
+  border: 1px solid ${colors.regular};
+  border-radius: 4px;
 
   ::placeholder {
     font-size: 1.2rem;
@@ -71,7 +72,7 @@ export const Input = styled.input`
 
   :focus {
     outline-color: #fff;
-    border-bottom: 1px solid orange;
+    border: 1px solid orange;
     background-color: #fff;
   }
 
@@ -83,7 +84,7 @@ export const Input = styled.input`
   width: 90%;
   :focus {
     outline-color: black;
-    border-bottom-color: orange;
+    border: 1px solid orange;
   }
 
   `}
@@ -93,6 +94,10 @@ export const Form = styled.form`
   display: flex;
   justify-content: center;
   flex-direction: column;
+
+  div {
+    margin: 1rem 0rem;
+  }
 `;
 
 export const Title = styled.h1`
@@ -157,4 +162,14 @@ export const ContentRight = styled.div`
   ${media.lessThan("medium")`
     width: 80%;
   `}
+`;
+
+export const InputSelect = styled.select`
+  height: 4rem;
+  width: 40rem;
+  padding-left: 1rem;
+  color: ${colors.regular};
+  font-size: 1.2rem;
+  background-color: #fff;
+  border: 1px solid ${colors.regular};
 `;

@@ -6,8 +6,9 @@ export const Container = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
-  height: 40rem;
-  padding: 7rem 10rem;
+  padding: 2rem;
+  /* height: 40rem;
+  padding: 7rem 10rem; */
 
   ${media.lessThan("medium")`
     height: auto;
@@ -79,6 +80,7 @@ export const List = styled.div`
 
 export const ContentLoading = styled.div`
   display: flex;
+  height: 100vh;
   justify-content: center;
   align-items: center;
 `;

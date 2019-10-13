@@ -12,6 +12,8 @@ export const Text = styled.p`
   align-items: center;
   text-align: center;
   line-height: 1.6rem;
+  padding: 0;
+  margin: 0;
 
   i {
     margin-right: 1rem;
@@ -31,7 +33,14 @@ export const Text = styled.p`
 `;
 
 export const TableHeader = styled.thead`
-  background-color: ${colors.light};
+  background-color: ${colors.header};
+
+  height: 8rem !important;
+
+  .header__content {
+    background-color: ${colors.header};
+    text-align: center;
+  }
 `;
 
 export const Days = styled.p`
@@ -41,8 +50,22 @@ export const Days = styled.p`
   font-size: 1.6rem;
   color: ${colors.regular};
   font-weight: 700;
+  padding: 0;
+  margin: 0;
 
   ${media.lessThan("medium")`
     font-size: 1rem;
   `}
+`;
+
+export const TableBody = styled.tbody`
+  tr {
+    border: none !important;
+  }
+
+  th {
+    background-color: #fff;
+    border: none !important;
+    border-bottom: 1px solid ${colors.light} !important;
+  }
 `;

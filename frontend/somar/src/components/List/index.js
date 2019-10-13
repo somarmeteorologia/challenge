@@ -1,29 +1,30 @@
 import React from "react";
 import { Table } from "react-bootstrap";
-import { Text, Days, TableHeader } from "./styles";
+import { Text, Days, TableHeader, TableBody } from "./styles";
 
 export default function List({ temps }) {
   return (
     <>
-      <Table striped bordered hover>
+      <Table responsive hover size="sm">
         <TableHeader>
-          <tr>
+          <tr className="header__content">
             {temps &&
               temps.map(temp => (
                 <th key={temp.day}>
                   <Days>{temp.day}</Days>
+                  <span>{temp.date}</span>
                 </th>
               ))}
           </tr>
         </TableHeader>
-        <tbody>
+        <TableBody>
           <tr>
             {temps &&
               temps.map((temp, i) => (
                 <th key={i}>
                   <Text max="true">
                     <i className="fas fa-caret-down" />
-                    {temp.tempMax}ºC
+                    {temp.temp_max}ºC
                   </Text>
                 </th>
               ))}
@@ -34,7 +35,7 @@ export default function List({ temps }) {
                 <th key={i}>
                   <Text min="true">
                     <i className="fas fa-caret-down" />
-                    {temp.tempMin}ºC
+                    {temp.temp_min}ºC
                   </Text>
                 </th>
               ))}
@@ -43,14 +44,14 @@ export default function List({ temps }) {
             {temps &&
               temps.map(temp => (
                 <th>
-                  <Text min="true" key={temp}>
+                  <Text key={temp}>
                     <i className="fas fa-caret-down" />
-                    {temp.humidity}
+                    {temp.humidity}%
                   </Text>
                 </th>
               ))}
           </tr>
-        </tbody>
+        </TableBody>
       </Table>
     </>
   );
