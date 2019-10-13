@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
-import PropTypes from "prop-types";
 import produce from "immer";
 import "moment/locale/pt-br";
 import moment from "moment";
@@ -9,6 +8,7 @@ import api from "../../service/api";
 import Graphic from "../../components/Graphic";
 import Loading from "../../components/Loading";
 import List from "../../components/List";
+import ModalFeedBack from "../../components/Modal";
 
 function Week({ history }) {
   const { state } = history.location;
@@ -19,6 +19,7 @@ function Week({ history }) {
 
   const [loading, setLoading] = useState(true);
   const [temps, getTemps] = useState([]);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     moment.locale("pt-br");
@@ -32,10 +33,10 @@ function Week({ history }) {
           createObjData(response.data);
         })
         .then(() => {
-          console.log("estou aqui");
           setLoading(false);
         })
         .catch(error => {
+          setError(true);
           console.log(error);
         });
     }
@@ -48,9 +49,6 @@ function Week({ history }) {
 
     getTemps(
       produce(temps, draft => {
-        console.log("temp", temps, "draft", draft);
-        console.log(data);
-
         Array(data).forEach((item, i) => {
           const min = item.points.forecast.temperature_daily_min.map(item =>
             item.toFixed()
@@ -78,8 +76,21 @@ function Week({ history }) {
     );
   }
 
-  console.log(temps);
-  console.log(history.location.state);
+  function goToHome() {
+    history.push("/");
+  }
+
+  if (error) {
+    return (
+      <ContentLoading>
+        <ModalFeedBack
+          show={error}
+          onClick={() => goToHome()}
+          onHide={() => goToHome()}
+        />
+      </ContentLoading>
+    );
+  }
 
   if (loading) {
     return (

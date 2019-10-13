@@ -21,7 +21,7 @@ export default function List({ temps }) {
             {temps &&
               temps.map(temp => (
                 <th key={temp.day}>
-                  <Days>
+                  <Days today={temp.day === moment().format("dddd")}>
                     {temp.day === moment().format("dddd") ? "HOJE" : temp.day}
                   </Days>
                   <span>{temp.date}</span>

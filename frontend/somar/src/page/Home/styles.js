@@ -3,11 +3,17 @@ import media from "styled-media-query";
 import { colors } from "../../style/styles";
 
 export const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 0.5fr 1fr;
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  padding: 1rem;
+
+  background-color: #fff;
 
   ${media.lessThan("medium")`
+  display: flex;
     flex-direction: column;
   `}
 
@@ -18,11 +24,7 @@ export const Container = styled.div`
 `;
 
 export const Footer = styled.div`
-  display: flex;
-  flex: 1;
-  padding: 2rem 0;
-  justify-content: flex-end;
-  min-height: 4rem;
+  display: grid;
 `;
 
 export const Content = styled.div`
@@ -36,10 +38,10 @@ export const Content = styled.div`
   border-radius: 2px;
 
   ${media.lessThan("medium")`
-    flex-direction: column;
+    /* flex-direction: column;
     padding: 0;
     border: none;
-    width: 90%;
+    width: 70%; */
   `}
 `;
 
@@ -108,11 +110,11 @@ export const Title = styled.h1`
 `;
 
 export const ButtonSubmit = styled.button`
-  padding: 1rem 2rem;
+  padding: 1rem 1.6rem;
   display: inline-block;
-  background-color: ${colors.primary};
+  background-color: orange;
   border-radius: 4px;
-  border-color: ${colors.primary};
+  border-color: orange;
 
   span {
     font-size: 2rem;
@@ -121,46 +123,54 @@ export const ButtonSubmit = styled.button`
   }
 
   :hover {
-    background-color: ${colors.primaryDark};
+    background-color: orange;
     transition: 0.4s;
   }
 
   ${props =>
     props.disabled &&
     css`
-      background-color: ${colors.primaryLight};
-      border-color: ${colors.primaryLight};
+      background-color: orange;
+      border-color: orange;
       opacity: 0.4;
     `}
 `;
 
 export const Background = styled.div`
   background-color: orange;
+  margin-right: 2rem;
   display: flex;
-  height: 22rem;
-  width: 22rem;
-  margin-right: 1rem;
-  display: flex;
+  flex: 1;
   justify-content: center;
   align-items: center;
 
   i {
+    justify-content: center;
+    align-self: center;
     font-size: 12rem;
     color: ${colors.light};
   }
 
   ${media.lessThan("medium")`
   width: 100%;
+  height: 100%;
+
+  i {
+    padding: 2rem;
+  
+  }
 `}
 `;
 
 export const ContentRight = styled.div`
+  grid-area: 1 / 2 / 2 / 3;
   ${media.lessThan("medium")`
     width: 80%;
   `}
 `;
 
 export const InputSelect = styled.select`
+  grid-area: 1 / 1 / 2 / 2;
   height: 4rem;
   width: 40rem;
   padding-left: 1rem;
@@ -168,4 +178,8 @@ export const InputSelect = styled.select`
   font-size: 1.2rem;
   background-color: #fff;
   border: 1px solid ${colors.regular};
+
+  ${media.lessThan("medium")`
+    width: 25rem;
+  `}
 `;

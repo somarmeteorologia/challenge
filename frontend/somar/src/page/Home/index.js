@@ -3,14 +3,14 @@ import apiIbge from "../../service/apiIbge";
 import { withRouter } from "react-router-dom";
 import {
   Container,
-  Content,
   Label,
   Form,
   Title,
   ButtonSubmit,
   Background,
   ContentRight,
-  InputSelect
+  InputSelect,
+  Footer
 } from "./styles";
 import Loading from "../../components/Loading";
 
@@ -108,27 +108,34 @@ class Home extends Component {
 
     history.push({
       pathname: "/week",
-      state: { coords: stateCoords, city: searchCityParams }
+      state: { coords: stateCoords, city: searchCityParams, city_name: city }
     });
   }
 
   render() {
-    const { states, buttonDisabled, loading, state, city, cities } = this.state;
+    const { states, buttonDisabled, loading, city, cities } = this.state;
 
     if (loading) {
       return (
-        <Container>
+        <div
+          className="d-flex flex-column justify-content-center align-items-center"
+          style={{ height: "100vh", backgroundColor: "#2c3e50" }}
+        >
           <Loading show={loading} />
-        </Container>
+        </div>
       );
     }
 
     return (
-      <Container>
-        <Content>
+      <div
+        className="d-flex flex-column justify-content-center align-items-center"
+        style={{ height: "100vh", backgroundColor: "#2c3e50" }}
+      >
+        <Container>
           <Background>
             <i className="fas fa-cloud-sun" />
           </Background>
+
           <ContentRight>
             <div className="content">
               <Title>APP Minha Semana</Title>
@@ -138,8 +145,8 @@ class Home extends Component {
                 <Label htmlFor="state">Qual o seu estado?</Label>
                 <InputSelect
                   name="select"
-                  // value={state.name}
                   id="state"
+                  defaultValue=""
                   onChange={this.handleSelectChange}
                 >
                   <option value="valor1" disabled>
@@ -164,6 +171,7 @@ class Home extends Component {
                   name="select"
                   id="city"
                   value={city}
+                  defaultValue=""
                   onChange={e =>
                     this.setState({
                       city: e.target.value,
@@ -183,15 +191,16 @@ class Home extends Component {
                 </InputSelect>
               </div>
 
-              <div className="footer">
+              <Footer>
                 <ButtonSubmit type="submit" disabled={buttonDisabled}>
                   <span>Buscar</span>
                 </ButtonSubmit>
-              </div>
+              </Footer>
             </Form>
           </ContentRight>
-        </Content>
-      </Container>
+          {/* <Content></Content> */}
+        </Container>
+      </div>
     );
   }
 }

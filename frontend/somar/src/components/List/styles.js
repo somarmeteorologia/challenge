@@ -94,6 +94,12 @@ export const Days = styled.p`
   ${media.lessThan("medium")`
     font-size: 1rem;
   `}
+
+  ${props =>
+    props.today &&
+    css`
+      font-weight: 700;
+    `}
 `;
 
 export const TableBody = styled.tbody`
