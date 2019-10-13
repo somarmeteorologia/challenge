@@ -3,7 +3,15 @@ import { withRouter } from "react-router-dom";
 import produce from "immer";
 import "moment/locale/pt-br";
 import moment from "moment";
-import { Container, ContentLoading } from "./styles";
+import {
+  Container,
+  ContentLoading,
+  ContentHeader,
+  Footer,
+  FooterList,
+  FooterListItem,
+  FooterHeader
+} from "./styles";
 import api from "../../service/api";
 import Graphic from "../../components/Graphic";
 import Loading from "../../components/Loading";
@@ -103,11 +111,40 @@ function Week({ history }) {
       </ContentLoading>
     );
   }
+  console.log(state);
 
   return (
     <Container>
+      <ContentHeader>
+        <h5>{state.city_name}</h5>
+        <span>localização</span>
+      </ContentHeader>
       <List temps={temps} />
       <Graphic data={temps} />
+      <Footer>
+        <FooterHeader>
+          <h5>Leticia Monteiro</h5>
+          <span>Front-End Developer</span>
+        </FooterHeader>
+
+        <FooterList>
+          <FooterListItem>
+            <a href="https://github.com/leticiamrosa">
+              <i className="fab fa-github-alt"></i>
+            </a>
+          </FooterListItem>
+          <FooterListItem>
+            <a href="https://www.linkedin.com/in/leticiamonteirorosa/">
+              <i className="fab fa-linkedin-in"></i>
+            </a>
+          </FooterListItem>
+          <FooterListItem>
+            <a href="https://leticiamrosa.github.io">
+              <i className="fas fa-globe"></i>
+            </a>
+          </FooterListItem>
+        </FooterList>
+      </Footer>
     </Container>
   );
 }

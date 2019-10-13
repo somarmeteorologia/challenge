@@ -50,3 +50,64 @@ export const ContentLoading = styled.div`
   align-items: center;
   background-color: ${colors.background};
 `;
+
+export const ContentHeader = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0rem 2rem;
+
+  h5 {
+    font-size: 2.4rem;
+    font-weight: 700;
+    padding: 0;
+    margin: 0;
+  }
+`;
+
+export const Footer = styled.footer`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const FooterList = styled.ul`
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+`;
+
+export const FooterListItem = styled.li`
+  margin: 0rem 2rem;
+
+  i {
+    font-size: 2rem;
+    color: ${colors.regular};
+  }
+
+  :hover {
+    i {
+      color: orange;
+    }
+  }
+`;
+
+export const FooterHeader = styled.div`
+  display: flex;
+  flex: 1;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+  flex-direction: column;
+
+  h5 {
+    font-size: 1.6rem;
+    padding: 0;
+    margin: 0;
+  }
+`;

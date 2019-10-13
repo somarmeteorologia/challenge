@@ -99,7 +99,11 @@ class Home extends Component {
 
     this.setState({ buttonDisabled: false });
 
-    const searchCityParams = `${city.split(" ").join("")}-${state.sigla}`;
+    const searchCityParams = `${city
+      .split(" ")
+      .join("")
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")}-${state.sigla}`;
 
     const stateCoords = {
       lon: coords.longitude,
