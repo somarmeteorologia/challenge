@@ -21,8 +21,7 @@ Como usar :
 
   É necessario que a pasta 'data' esteja junto aos arquivos.py.
 
-
+Deploy no aws beanstalk : http://challenge-enviroment.eba-mmufkdyp.sa-east-1.elasticbeanstalk.com
 
 Próximos passos :
-
-  - Testes e deployment. (Travis CI)
+ CircleCI
