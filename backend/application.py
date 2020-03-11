@@ -2,11 +2,11 @@ from flask import Flask, request
 from graphqlConsumer import *
 from flask_graphql import GraphQLView
 
-app = Flask(__name__)
-app.add_url_rule('/graphql', view_func=GraphQLView.as_view('graphql', schema=schema, graphiql=True))
+application = Flask(__name__)
+application.add_url_rule('/graphql', view_func=GraphQLView.as_view('graphql', schema=schema, graphiql=True))
 
 
-@app.route('/')
+@application.route('/')
 def input_handler():
     query = request.args.get("query")
     if query:
@@ -33,5 +33,5 @@ def input_handler():
 if __name__ == "__main__":
     # Setting debug to True enables debug output. This line should be
     # removed before deploying a production app.
-    app.debug = True
-    app.run()
+    application.debug = True
+    application.run()
