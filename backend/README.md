@@ -21,7 +21,5 @@ Como usar :
 
   É necessario que a pasta 'data' esteja junto aos arquivos.py.
 
-Deploy no aws beanstalk : http://challenge-enviroment.eba-mmufkdyp.sa-east-1.elasticbeanstalk.com
-
-Próximos passos :
- CircleCI
+Deploy no Circle CI , ainda sem testes : https://circleci.com/gh/Welt0n/Challenge---Somar-Meteorologia/30
+CircleCi foi usado utilizando este repositório https://github.com/Welt0n/Challenge---Somar-Meteorologia
