@@ -4,3 +4,6 @@
 # Config PyCharm
 .idea/
 
+#ignoring pycache directory
+__pycache__
+
