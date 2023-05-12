@@ -1,23 +1,15 @@
-import time
-
-import redis
-from flask import Flask
+from flask import Flask, jsonify
+from pymongo import MongoClient
 
 app = Flask(__name__)
-cache = redis.Redis(host='redis', port=6379)
 
-def get_hit_count():
-    retries = 5
-    while True:
-        try:
-            return cache.incr('hits')
-        except redis.exceptions.ConnectionError as exc:
-            if retries == 0:
-                raise exc
-            retries -= 1
-            time.sleep(0.5)
+# Connect to MongoDB
+client = MongoClient("mongo", 27017)
+db = client["mydatabase"]
+collection = db["mycollection"]
 
 @app.route('/')
 def hello():
-    count = get_hit_count()
-    return 'Hello from Docker! I have been seen {} times.\n'.format(count)
+    return jsonify({
+        'message': 'Hello, Flask and MongoDB!'
+    })

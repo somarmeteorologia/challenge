@@ -5,8 +5,15 @@ services:
     ports:
       - "8000:5000"
     volumes:
-      - .:/src/app
+    - .:/src/build
+    depends_on:
+      - mongo
     environment:
       FLASK_DEBUG: "true"
-  redis:
-    image: "redis:alpine"
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+     - "27017:27017"
+    volumes:
+     - ./db:/data/db
