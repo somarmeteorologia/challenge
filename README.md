@@ -1,6 +1,6 @@
 # weather-api-challenge
 
-This repo is a solution for requirements of this `<a href="https://github.com/somarmeteorologia/challenge/blob/master/backend/README.md">`Project`</a>`.
+This repo is a solution for requirements of this `<a href="https://github.com/somarmeteorologia/challenge/blob/master/backend/README.md">`Project `</a>`.
 
 ## Features
 
@@ -22,7 +22,7 @@ This repo is a solution for requirements of this `<a href="https://github.com/so
 
 <dt>Web Server Framework</dt>
   <dd>
-    Use <a href="https://flask.palletsprojects.com/en/2.3.x/">Flask</a> for requests routing and middlewares. And also uses <a href="https://pypi.org/project/flask-swagger/">flask-swagger</a> for creating a doc with SwaggerUI. 
+    Use <a href="https://flask.palletsprojects.com/en/2.3.x/">Flask</a> for requests routing and middlewares. And also uses <a href="https://github.com/flasgger/flasgger">flasgger</a> for creating a doc with SwaggerUI. 
   </dd>
 
 <dt>Database</dt>
