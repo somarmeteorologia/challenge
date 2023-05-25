@@ -3,7 +3,7 @@ services:
   web:
     build: .
     ports:
-      - "8000:5000"
+      - "5000:5000"
     volumes:
     - .:/src/build
     depends_on:

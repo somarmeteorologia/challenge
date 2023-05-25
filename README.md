@@ -41,8 +41,8 @@ This repo is a solution for requirements of this `<a href="https://github.com/so
 1. Clone the repository with `git clone https://github.com/matheusfcorocher/weather-api-challenge.git`
 2. Go to repository directory `cd weather-api-challenge`
 3. Run `docker compose up`
-4. Access `http://localhost:8000/` and you're ready to go!
+4. Access `http://localhost:5000/` and you're ready to go!
 
 ## Endpoints of this api and requirements
 
-1. After initialize the server you go to address `http://localhost:8000/apidocs/` to see all routes of api in Swagger UI.
+1. After initialize the server you go to address `http://localhost:5000/apidocs/` to see all routes of api in Swagger UI.
