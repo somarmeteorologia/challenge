@@ -16,4 +16,4 @@ services:
     ports:
      - "27017:27017"
     volumes:
-     - ./db:/data/db
+     - ./mongo_db_data:/data/db

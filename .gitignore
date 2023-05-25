@@ -9,4 +9,4 @@ __pycache__
 
 #ignoring data from database
 db
-
+mongo_db_data
