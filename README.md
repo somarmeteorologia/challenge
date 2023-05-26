@@ -46,3 +46,10 @@ This repo is a solution for requirements of this `<a href="https://github.com/so
 ## Endpoints of this api and requirements
 
 1. After initialize the server you go to address `http://localhost:5000/apidocs/` to see all routes of api in Swagger UI.
+
+## Useful commands
+
+This api comes with a collection of commands that you can run:
+
+- `docker compose up --build tests`: Run tests with pytest
+- `docker compose down`: Shutdown docker containers
