@@ -2,3 +2,4 @@ flask
 flask-restful
 flasgger
 pymongo
+pytest
