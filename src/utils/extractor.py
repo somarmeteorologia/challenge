@@ -1,7 +1,33 @@
 import csv
 import json
+import logging
 import os
 from typing import Callable
+
+
+# Configure the root logger
+logging.basicConfig(
+    level=logging.INFO, 
+    format='%(asctime)s [%(levelname)s] %(message)s', 
+    datefmt='%d-%b-%y %H:%M:%S'
+)
+
+logger = logging.getLogger(__name__)
+
+def main(data_path: str) -> None:
+    logger.info("Starting extract.py script")
+    #Verify if data_path has forecast and observed directories    
+    logger.info(f"Checking if {data_path} has forecast and observed directories")
+    has_directory = make_has_directory(os.path.isdir)
+    directories = ["observed", "forecast"]
+    result = list(map(lambda directory: has_directory(data_path, directory), directories))
+    
+    logger.info(f"Applying extractor for found directories")
+    result = filter(lambda r: r == True, result)
+    #map(lambda r: apply_extractor(), result)
+    # define csv_to_file_function
+
+    logger.info("Ending extract.py script")
 
 def csv_to_json(csv_file_path, json_file_path):
     data = []
@@ -34,7 +60,14 @@ def csv_to_json(csv_file_path, json_file_path):
 
 def apply_extractor(directory_path, extractor_function):
     # this function apply extractor function csv_to_json in directory
-    return 1
+        
+    # If has call csv_to_json for both directories and read each file inside of both
+    # Else, finish program
+    # Usage example
+    csv_file_path = 'path/to/input.csv'
+    json_file_path = 'path/to/output.json'
+    csv_to_json(csv_file_path, json_file_path)
+    
 
 def make_has_directory(checker_fn: Callable[[str], bool]) -> Callable[[str, str], bool]:
     """
@@ -44,14 +77,15 @@ def make_has_directory(checker_fn: Callable[[str], bool]) -> Callable[[str, str]
 
         Parameters
         ----------
-            - checker_fn (Callable[[str], bool])): A function that checks if directory 
-            exists in file system path
+            - checker_fn : Callable[[str], bool]) 
+                - A function that checks if directory exists in file system path
         
         Returns
         -------
-            - Callable[[str, str], bool] : Returns has_directory function. 
-            Go to implementation of make_has_directory function to see how has_directory
-            function works.
+            - Callable[[str, str], bool]
+                - Returns has_directory function. 
+                Go to implementation of make_has_directory function to see 
+                how has_directory function works.
 
         Examples
         --------
@@ -67,13 +101,16 @@ def make_has_directory(checker_fn: Callable[[str], bool]) -> Callable[[str, str]
 
             Parameters
             ----------
-                - path_name (str): Name of file system path
-                - directory_name (str): Name of possible directory
+                - path_name : str
+                    - Name of file system path
+                - directory_name : str 
+                    - Name of possible directory
             
             Returns
             -------
-                - (bool): Return true if is found directory inside of path
-                and false if not.
+                - bool 
+                    - Return true if is found directory inside of path
+                    and false if not.
 
             Examples
             --------
@@ -82,21 +119,15 @@ def make_has_directory(checker_fn: Callable[[str], bool]) -> Callable[[str, str]
                 >>> has_directory("./data", "dih")
                 False
         """
-        directory_path = path_name + directory_name
-        return checker_fn(directory_path)
+        directory_path = path_name + "/" + directory_name
+        result = checker_fn(directory_path)
+        if result:
+            logger.info(f"It was found directory {directory_path}")
+        else:
+            logger.warning(f"It wasn't found directory {directory_path}")
+        
+        return result
     
     return has_directory
 
-def main(data_path):
-    # define csv_to_file_function
-    #Verify if data_path has forecast and observed directories
-    # If has call csv_to_json for both directories and read each file inside of both
-    # Else, finish program
-    # Usage example
-    csv_file_path = 'path/to/input.csv'
-    json_file_path = 'path/to/output.json'
-    csv_to_json(csv_file_path, json_file_path)
-    return 0
-
-def container():
-    has_directory = make_has_directory(os.path.isdir)
+main("./data")
