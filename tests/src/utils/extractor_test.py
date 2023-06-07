@@ -1,5 +1,5 @@
+import logging
 import os
-from unittest.mock import MagicMock, patch
 import pytest
 import sys
 
@@ -18,6 +18,18 @@ class TestHasDirectory:
             This class contains tests cases to check has_directory function
             from extractor.py.
     """
+
+    @pytest.fixture(autouse=True)
+    def before_and_after_each_test(self, caplog):
+        """
+            Fixture to clean up logging output before each test.
+        """
+        #before each test
+        # Set to capture logs above INFO
+        caplog.set_level(logging.INFO)
+        caplog.clear()
+        yield
+        #after each test
     
     @pytest.fixture
     def check_fn_true(self, monkeypatch):
@@ -54,7 +66,30 @@ class TestHasDirectory:
 
         #result
         assert test1 is True
+    
+    def test_has_directory_log(self, check_fn_true, caplog):
+        """
+            Description
+            -----------
+                When is given a directory name that exist
+            
+            Expected Result
+            ---------------
+                Shows log that directory was found
+        """
 
+        #setup
+        records = caplog.records
+        has_directory = extractor.make_has_directory(os.path.isdir)
+        
+        #when
+        test1 = has_directory("./data", "observed")
+
+        #result
+        directory_path = "./data/observed"
+        assert len(records) == 1
+        assert records[0].message == f"It was found directory {directory_path}"
+    
     def test_doesnt_have_directory(self, check_fn_false):
         """
             Description
@@ -74,3 +109,26 @@ class TestHasDirectory:
 
         # result
         assert test2 is False
+    
+    def test_doesnt_have_directory_log(self, check_fn_false, caplog):
+        """
+            Description
+            -----------
+                When is given a directory name that doesnt exist
+            
+            Expected Result
+            ---------------
+                Shows log that directory wasn't found
+        """
+
+        #setup
+        records = caplog.records
+        has_directory = extractor.make_has_directory(os.path.isdir)
+        
+        #when
+        test2 = has_directory("./data", "tests")
+
+        #result
+        directory_path = "./data/tests"
+        assert len(records) == 1
+        assert records[0].message == f"It wasn't found directory {directory_path}"
