@@ -3,7 +3,7 @@ import os
 import pytest
 import sys
 
-sys.path.append('./src/utils')
+sys.path.append('./scripts')
 import extractor
 
 # def test_make_has_directory():
