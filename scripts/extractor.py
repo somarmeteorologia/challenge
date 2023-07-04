@@ -2,7 +2,7 @@ import csv
 import json
 import logging
 import os
-from typing import Callable
+from typing import Callable, List
 
 
 # Configure the root logger
@@ -18,14 +18,25 @@ def main(data_path: str) -> None:
     logger.info("Starting extract.py script")
     #Verify if data_path has forecast and observed directories    
     logger.info(f"Checking if {data_path} has forecast and observed directories")
+    
     has_directory = make_has_directory(os.path.isdir)
     directories = ["observed", "forecast"]
-    result = list(map(lambda directory: has_directory(data_path, directory), directories))
+    
+    directories_paths = list(map(lambda directory: data_path + "/" + directory, directories))
+    found_directories = filter(lambda directory_path: 
+                               directory_path if has_directory(directory_path) 
+                               else None, directories_paths)
     
     logger.info(f"Applying extractor for found directories")
-    result = filter(lambda r: r == True, result)
-    #map(lambda r: apply_extractor(), result)
-    # define csv_to_file_function
+    
+    output_filepath = 'data/extractor_output'
+    file_extension = ".csv"
+    get_filepaths = make_get_filepaths(os.walk)
+
+    for directory in found_directories:
+        if directory:
+            filepaths = get_filepaths(directory, file_extension)
+            map(lambda filepath: csv_to_json(filepath, output_filepath), filepaths)
 
     logger.info("Ending extract.py script")
 
@@ -58,16 +69,68 @@ def csv_to_json(csv_file_path, json_file_path):
     with open(json_file_path, 'w') as json_file:
         json.dump(json_data, json_file, indent=4)
 
-def apply_extractor(directory_path, extractor_function):
-    # this function apply extractor function csv_to_json in directory
+def make_get_filepaths(get_files_fn: Callable[[str]]) -> Callable[[str, str], List[str]]:
+    """
+        Description
+        -----------
+            Creates get_filepaths function with get_files_fn.
+
+        Parameters
+        ----------
+            - get_files_fn : Callable[[str], bool]) 
+                - A function that get files in a directory with certain file extension
         
-    # If has call csv_to_json for both directories and read each file inside of both
-    # Else, finish program
-    # Usage example
-    csv_file_path = 'path/to/input.csv'
-    json_file_path = 'path/to/output.json'
-    csv_to_json(csv_file_path, json_file_path)
+        Returns
+        -------
+            - Callable[[str]]
+                - Returns get_filepaths function. 
+                Go to implementation of make_get_filepaths function to see 
+                how get_filepaths function works.
+
+        Examples
+        --------
+            >>> make_get_filepaths(os.work)
+            get_filepaths
+    """
+
+    def get_filepaths(directory_path: str, file_extension: str) -> List[str]:
+        """
+            Description
+            -----------
+                Get files inside of directory path.
+
+            Parameters
+            ----------
+                - directory_path : str 
+                    - Path of possible directory
+                - file_extension: str
+                    - Extension of file
+            
+            Returns
+            -------
+                - List[str]
+                    - Return filepaths of files with given extension.
+
+            Examples
+            --------
+                >>> get_filepaths("./data/observed", ".csv")
+                ["abba.csv", "db.csv"]
+                >>> get_filepaths("./data/observed", ".txt")
+                []
+        """
+        filepaths = []
+
+        for subdir, dirs, files in get_files_fn(directory_path):
+            for file in files:
+                #print os.path.join(subdir, file)
+                filepath = subdir + os.sep + file
+
+                if filepath.endswith(file_extension):
+                    filepaths.append(filepath)
+        
+        return filepaths
     
+    return get_filepaths
 
 def make_has_directory(checker_fn: Callable[[str], bool]) -> Callable[[str, str], bool]:
     """
@@ -93,7 +156,7 @@ def make_has_directory(checker_fn: Callable[[str], bool]) -> Callable[[str, str]
             has_directory
     """
 
-    def has_directory(path_name: str, directory_name: str) -> bool:
+    def has_directory(directory_path: str) -> bool:
         """
             Description
             -----------
@@ -101,10 +164,8 @@ def make_has_directory(checker_fn: Callable[[str], bool]) -> Callable[[str, str]
 
             Parameters
             ----------
-                - path_name : str
-                    - Name of file system path
-                - directory_name : str 
-                    - Name of possible directory
+                - directory_path : str 
+                    - Path of possible directory
             
             Returns
             -------
@@ -114,12 +175,11 @@ def make_has_directory(checker_fn: Callable[[str], bool]) -> Callable[[str, str]
 
             Examples
             --------
-                >>> has_directory("./data", "observed")
+                >>> has_directory("./data/observed")
                 True
-                >>> has_directory("./data", "dih")
+                >>> has_directory("./data/dih")
                 False
         """
-        directory_path = path_name + "/" + directory_name
         result = checker_fn(directory_path)
         if result:
             logger.info(f"It was found directory {directory_path}")

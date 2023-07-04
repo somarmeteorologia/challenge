@@ -62,7 +62,7 @@ class TestHasDirectory:
         has_directory = extractor.make_has_directory(os.path.isdir)
         
         #when
-        test1 = has_directory("./data", "observed")
+        test1 = has_directory("./data/observed")
 
         #result
         assert test1 is True
@@ -81,12 +81,12 @@ class TestHasDirectory:
         #setup
         records = caplog.records
         has_directory = extractor.make_has_directory(os.path.isdir)
+        directory_path = "./data/observed"
         
         #when
-        test1 = has_directory("./data", "observed")
+        test1 = has_directory(directory_path)
 
         #result
-        directory_path = "./data/observed"
         assert len(records) == 1
         assert records[0].message == f"It was found directory {directory_path}"
     
@@ -105,7 +105,7 @@ class TestHasDirectory:
         has_directory = extractor.make_has_directory(os.path.isdir)
 
         # when
-        test2 = has_directory("./data", "tests")
+        test2 = has_directory("./data/tests")
 
         # result
         assert test2 is False
@@ -124,11 +124,11 @@ class TestHasDirectory:
         #setup
         records = caplog.records
         has_directory = extractor.make_has_directory(os.path.isdir)
+        directory_path = "./data/tests"
         
         #when
-        test2 = has_directory("./data", "tests")
+        test2 = has_directory(directory_path)
 
         #result
-        directory_path = "./data/tests"
         assert len(records) == 1
         assert records[0].message == f"It wasn't found directory {directory_path}"
