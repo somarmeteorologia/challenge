@@ -69,7 +69,7 @@ def csv_to_json(csv_file_path, json_file_path):
     with open(json_file_path, 'w') as json_file:
         json.dump(json_data, json_file, indent=4)
 
-def make_get_filepaths(get_files_fn: Callable[[str]]) -> Callable[[str, str], List[str]]:
+def make_get_filepaths(get_files_fn) -> Callable[[str, str], List[str]]:
     """
         Description
         -----------

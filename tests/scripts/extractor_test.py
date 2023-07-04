@@ -11,7 +11,7 @@ import extractor
 #     result = extractor.make_has_directory(check_fn)
 #     assert result == callable
 
-class TestHasDirectory:
+class Test_has_directory:
     """
         Description
         -----------
@@ -132,3 +132,58 @@ class TestHasDirectory:
         #result
         assert len(records) == 1
         assert records[0].message == f"It wasn't found directory {directory_path}"
+
+class Test_get_filepaths:
+    """
+        Description
+        -----------
+            This class contains tests cases to check get_filepaths function
+            from extractor.py.
+    """
+    
+    def mock_get_files_fn(directory_path: str, file_extension: str):
+        return [("dir1", [], ["file1.csv", "file2.csv"]),
+            ("dir2", [], ["file3.txt", "file4.txt"])]
+
+    def test_get_filepaths(self):
+        """
+            Description
+            -----------
+                When is given a directory path that exist 
+                and has csv files
+            
+            Expected Result
+            ---------------
+                returns array with paths of files
+        """
+
+        #setup
+        get_filepaths = extractor.make_get_filepaths(self.mock_get_files_fn)
+        
+        #when
+        test1 = get_filepaths("./dir1", ".csv")
+
+        #result
+        assert len(test1) == 2
+    
+    def test_get_filepaths_empty(self):
+        """
+            Description
+            -----------
+                When is given a directory path that exist 
+                and doesn't have csv files
+            
+            Expected Result
+            ---------------
+                returns array with paths of files
+        """
+
+        #setup
+        get_filepaths = extractor.make_get_filepaths(self.mock_get_files_fn)
+
+        
+        #when
+        test2 = get_filepaths("./dir2", ".c")
+
+        #result
+        assert len(test2) == 0
