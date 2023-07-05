@@ -37,7 +37,7 @@ This repo is a solution for requirements of this <a href="https://github.com/som
 
 ## Quick start
 
-0. Do you need  `<a href="https://docs.docker.com/get-docker"/>`Docker `</a>` installed in your machine.
+0. Do you need  <a href="https://docs.docker.com/get-docker"/>Docker</a> installed in your machine.
 1. Clone the repository with `git clone https://github.com/matheusfcorocher/weather-api-challenge.git`
 2. Go to repository directory `cd weather-api-challenge`
 3. Run `docker compose up`
