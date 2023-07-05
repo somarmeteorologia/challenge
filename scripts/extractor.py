@@ -29,7 +29,7 @@ def main(data_path: str) -> None:
                                else None, directories_paths))
     logger.info(f"Applying extractor for found directories")
     
-    output_filepath = '../data/extractor_output'
+    output_filepath = data_path + "/" + 'extractor_output'
     file_extension = ".csv"
     get_filepaths = make_get_filepaths(os.walk)
 
