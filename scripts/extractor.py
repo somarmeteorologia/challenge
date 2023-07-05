@@ -2,7 +2,8 @@ import csv
 import json
 import logging
 import os
-from typing import Callable, List
+import re
+from typing import Callable, Dict, Union, List
 
 
 # Configure the root logger
@@ -23,51 +24,108 @@ def main(data_path: str) -> None:
     directories = ["observed", "forecast"]
     
     directories_paths = list(map(lambda directory: data_path + "/" + directory, directories))
-    found_directories = filter(lambda directory_path: 
+    found_directories = list(filter(lambda directory_path: 
                                directory_path if has_directory(directory_path) 
-                               else None, directories_paths)
-    
+                               else None, directories_paths))
     logger.info(f"Applying extractor for found directories")
     
-    output_filepath = 'data/extractor_output'
+    output_filepath = '../data/extractor_output'
     file_extension = ".csv"
     get_filepaths = make_get_filepaths(os.walk)
 
     for directory in found_directories:
         if directory:
             filepaths = get_filepaths(directory, file_extension)
-            map(lambda filepath: csv_to_json(filepath, output_filepath), filepaths)
+            for filepath in filepaths:
+                csv_to_json(filepath, output_filepath)
 
     logger.info("Ending extract.py script")
 
-def csv_to_json(csv_file_path, json_file_path):
-    data = []
-    
-    # Extract the CSV filename
-    # Uses regex for getting this information
-    # First name is city
-    # Second name after - is state
-    # The last numbers is coordinates
-    csv_filename = csv_file_path.split('/')[-1]
-    
-    # Read the CSV file and convert to JSON
-    with open(csv_file_path, 'r') as csv_file:
-        csv_reader = csv.DictReader(csv_file)
-        data = [row for row in csv_reader]
-    
-    # Create a dictionary containing the CSV filename and its data
-    # if file is in folder forecast or observed, all data extracted from json will become
-    # directory of it
-    json_data = {
-        'csv_filename': csv_filename,
-        'data': data
+def csv_to_json(csv_filepath, output_filepath):
+    data = get_metadata_from_filepath(csv_filepath)
+ 
+    try:
+        csv_data = {}
+        with open(csv_filepath, 'r') as csv_file:
+            csv_reader = csv.DictReader(csv_file, delimiter=";")
+
+            column_names = csv_reader.fieldnames
+            for column in column_names:
+                csv_data[column] = []
+            
+            next(csv_reader)
+            for row in csv_reader:
+                for column_name in column_names:
+                    column_value = row[column_name]
+                    csv_data[column_name].append(column_value)
+        
+        if data['type'] == "forecast":
+            data['forecast'] = csv_data
+        if data['type'] == 'observed':
+            data['observed'] = csv_data
+        data.pop('type')
+        
+        output_filepath += f'/{data["state"]}_{data["city"]}.json'
+
+        with open(output_filepath, "r") as json_file:
+            found_data = json.load(json_file)
+            data.update(found_data)
+    except FileNotFoundError:
+        pass
+
+    with open(output_filepath, 'w') as json_file:
+            json.dump(data, json_file, indent=4)
+
+def get_metadata_from_filepath(filepath: str) -> Dict[str, Union[str, List[float]]]:
+    """
+            Description
+            -----------
+                Get metadata from filepath
+
+            Parameters
+            ----------
+                - filepath : str 
+                    - Path of directory
+            
+            Returns
+            -------
+                - Dict
+                    - Return a dictionary containing the values extracted
+
+            Examples
+            --------
+                >>> get_metadata_from_filepath(".data/observed/Abadia-BA_-11.56_-37.52.csv")
+                {
+                  type: "observed",
+                  location: "Abadia",
+                  state: "BA",
+                  coordinates: [-11.56, -37.52]
+                }
+                >>> get_metadata_from_filepath(".data/kano/test.txt")
+                {
+                  type: "",
+                  location: "",
+                  state: "",
+                  coordinates: ["", ""]
+                }
+    """
+    filename_match = re.search(r'(forecast|observed)/(\w+)-(\w+)_(\-?\d+\.\d+)_(\-?\d+\.\d+).\w+', filepath)
+    type = filename_match.group(1) if filename_match else ''
+    city = filename_match.group(2) if filename_match else ''
+    state_abbreviation = filename_match.group(3) if filename_match else ''
+    latitude = filename_match.group(4) if filename_match else ''
+    longitude = filename_match.group(5) if filename_match else ''
+
+    metadata = {
+        "type": type,
+        "city": city,
+        "state": state_abbreviation,
+        "coordinates": [latitude, longitude]
     }
-    
-    # Check if already has json file created if it's observed or forecast
-    # If yes, append the JSON data to file
-    # If no, write the JSON data to a file
-    with open(json_file_path, 'w') as json_file:
-        json.dump(json_data, json_file, indent=4)
+
+    metadata[type] = {}
+
+    return metadata
 
 def make_get_filepaths(get_files_fn) -> Callable[[str, str], List[str]]:
     """
@@ -132,7 +190,7 @@ def make_get_filepaths(get_files_fn) -> Callable[[str, str], List[str]]:
     
     return get_filepaths
 
-def make_has_directory(checker_fn: Callable[[str], bool]) -> Callable[[str, str], bool]:
+def make_has_directory(checker_fn: Callable[[str], bool]) -> Callable[[str], bool]:
     """
         Description
         -----------
@@ -190,4 +248,4 @@ def make_has_directory(checker_fn: Callable[[str], bool]) -> Callable[[str, str]
     
     return has_directory
 
-main("./data")
+main("../data")
