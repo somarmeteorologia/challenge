@@ -187,3 +187,84 @@ class Test_get_filepaths:
 
         #result
         assert len(test2) == 0
+
+class Test_get_metadata_from_filepath:
+    def test_observed_folder_path(self):
+        """
+            Description
+            -----------
+                When is given a directory path that has
+                observed as parent folder and csv file
+                with desired name
+            
+            Expected Result
+            ---------------
+                returns dictionary with right data
+        """
+
+        #setup
+        filepath = ".data/observed/Abadia-BA_-11.56_-37.52.csv"
+        expected_result = {
+            "type": "observed",
+            "city": "Abadia",
+            "state": "BA",
+            "coordinates": ['-11.56', '-37.52'],
+            "observed": {}
+        }
+        
+        #result
+        assert extractor.get_metadata_from_filepath(filepath) == expected_result
+    
+    def test_forecast_folder_path(self):
+        """
+            Description
+            -----------
+                When is given a directory path that has
+                forecast as parent folder and csv file
+                with desired name
+            
+            Expected Result
+            ---------------
+                returns dictionary with right data
+        """
+
+        #setup
+        filepath = ".data/forecast/Kano-KN_-9.09_7.39.json"
+        expected_result = {
+            "type": "forecast",
+            "city": "Kano",
+            "state": "KN",
+            "coordinates": ['-9.09', '7.39'],
+            "forecast": {}
+        }
+        #result
+        assert extractor.get_metadata_from_filepath(filepath) == expected_result
+
+    def test_invalid_file_path(self):
+        """
+            Description
+            -----------
+                When is given a directory path that has
+                no forecast or observed as parent folder 
+                and csv file with not desired name
+            
+            Expected Result
+            ---------------
+                returns dictionary with values
+                empty
+        """
+        # Test with an invalid file path
+
+        #setup
+        filepath = ".data/kano/test.txt"
+        expected_result = {
+            "type": "",
+            "city": "",
+            "state": "",
+            "coordinates": ["", ""],
+            '': {}
+        }
+
+        #result
+        assert extractor.get_metadata_from_filepath(filepath) == expected_result
+

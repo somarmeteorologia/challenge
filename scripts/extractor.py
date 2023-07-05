@@ -122,14 +122,16 @@ def get_metadata_from_filepath(filepath: str) -> Dict[str, Union[str, List[float
                   type: "observed",
                   location: "Abadia",
                   state: "BA",
-                  coordinates: [-11.56, -37.52]
+                  coordinates: ['-11.56', '-37.52'],
+                  observed: {}
                 }
                 >>> get_metadata_from_filepath(".data/kano/test.txt")
                 {
                   type: "",
                   location: "",
                   state: "",
-                  coordinates: ["", ""]
+                  coordinates: ['', '']
+                  '': {}
                 }
     """
     filename_match = re.search(r'(forecast|observed)/(\w+)-(\w+)_(\-?\d+\.\d+)_(\-?\d+\.\d+).\w+', filepath)
