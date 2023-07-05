@@ -76,7 +76,6 @@ def csv_to_json(csv_filepath, output_filepath):
             for column in column_names:
                 csv_data[column] = []
             
-            next(csv_reader)
             for row in csv_reader:
                 for column_name in column_names:
                     column_value = row[column_name]
