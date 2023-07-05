@@ -15,7 +15,7 @@ logging.basicConfig(
 
 logger = logging.getLogger(__name__)
 
-def main(data_path: str) -> None:
+def main(data_path: str, output_folder: str = 'extractor_output') -> None:
     logger.info("Starting extract.py script")
     #Verify if data_path has forecast and observed directories    
     logger.info(f"Checking if {data_path} has forecast and observed directories")
@@ -29,7 +29,8 @@ def main(data_path: str) -> None:
                                else None, directories_paths))
     logger.info(f"Applying extractor for found directories")
     
-    output_filepath = data_path + "/" + 'extractor_output'
+    output_filepath = data_path + "/" + output_folder
+    os.makedirs(output_filepath, exist_ok=True)
     file_extension = ".csv"
     get_filepaths = make_get_filepaths(os.walk)
 
@@ -272,4 +273,4 @@ def make_has_directory(checker_fn: Callable[[str], bool]) -> Callable[[str], boo
     
     return has_directory
 
-main("../data")
+main("../data", "mongo_input")
