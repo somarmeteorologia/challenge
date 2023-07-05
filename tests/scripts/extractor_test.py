@@ -8,11 +8,6 @@ import sys
 sys.path.append('./scripts')
 import extractor
 
-# def test_make_has_directory():
-#     check_fn = os.path.isdir
-#     result = extractor.make_has_directory(check_fn)
-#     assert result == callable
-
 class Test_has_directory:
     """
         Description
