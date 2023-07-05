@@ -42,8 +42,31 @@ def main(data_path: str) -> None:
     logger.info("Ending extract.py script")
 
 def csv_to_json(csv_filepath, output_filepath):
+    """
+            Description
+            -----------
+                Transform a csv file to json file
+
+            Parameters
+            ----------
+                - csv_filepath : str
+                    - Path of csv file
+                - output_filepath : str
+                    - Path of where is going to dump the result
+            
+            Returns
+            -------
+                - None
+                    - Creates a json file in filesystem
+
+            Examples
+            --------
+                >>> csv_to_json("../data/observed/Abadia-BA_-11.56_-37.52.csv", "../data/output")
+                None
+    """
+
     data = get_metadata_from_filepath(csv_filepath)
- 
+
     try:
         csv_data = {}
         with open(csv_filepath, 'r') as csv_file:
