@@ -17,5 +17,10 @@ services:
      - "27017:27017"
     volumes:
      - mongoDB-data:/data/db
+  tests:
+    build: .
+    volumes:
+      - .:/src/build
+    command: pytest --capture=no
 volumes:
   mongoDB-data:
