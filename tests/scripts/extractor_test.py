@@ -191,6 +191,13 @@ class Test_get_filepaths:
         assert len(test2) == 0
 
 class Test_get_metadata_from_filepath:
+    """
+        Description
+        -----------
+            This class contains tests cases to test get_metadata_from_filepath function
+            from extractor.py.
+    """
+
     def test_observed_folder_path(self):
         """
             Description
@@ -271,6 +278,12 @@ class Test_get_metadata_from_filepath:
         assert extractor.get_metadata_from_filepath(filepath) == expected_result
 
 class Test_csv_to_json:
+    """
+        Description
+        -----------
+            This class contains tests cases to test csv_to_json function
+            from extractor.py.
+    """
 
     def test_first_time_reading_csv_file(self):
         """
