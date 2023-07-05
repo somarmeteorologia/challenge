@@ -1,6 +1,6 @@
 # weather-api-challenge
 
-This repo is a solution for requirements of this `<a href="https://github.com/somarmeteorologia/challenge/blob/master/backend/README.md">`Project `</a>`.
+This repo is a solution for requirements of this <a href="https://github.com/somarmeteorologia/challenge/blob/master/backend/README.md">Somarmeteorologia's backend project</a>.
 
 ## Features
 
