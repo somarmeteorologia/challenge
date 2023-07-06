@@ -74,8 +74,10 @@ def csv_to_json(csv_filepath, output_filepath):
             csv_reader = csv.DictReader(csv_file, delimiter=";")
 
             column_names = csv_reader.fieldnames
+            if '' in column_names:
+                column_names.remove('')
             for column in column_names:
-                csv_data[column] = []
+                    csv_data[column] = []
             
             for row in csv_reader:
                 for column_name in column_names:
@@ -95,7 +97,7 @@ def csv_to_json(csv_filepath, output_filepath):
             data.update(found_data)
     except FileNotFoundError:
         pass
-
+    
     with open(output_filepath, 'w') as json_file:
             json.dump(data, json_file, indent=4)
 

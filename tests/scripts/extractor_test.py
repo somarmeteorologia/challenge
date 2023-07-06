@@ -338,6 +338,7 @@ class Test_csv_to_json:
         os.rmdir(temp_dir)
 
     def test_when_file_already_exist(self):
+
         """
             Description
             -----------
@@ -414,3 +415,59 @@ class Test_csv_to_json:
         os.remove(expected_output_filepath)
         for dir in temp_dir:
             os.rmdir(dir)
+
+    def test_blank_column(self):
+        """
+            Description
+            -----------
+                When is given a csv_filepath and
+                output_filepath and one of the columns
+                has blank character
+            
+            Expected Result
+            ---------------
+                creates a json file ignoring blank column
+        """
+
+        # Create a temporary directory for test files
+        temp_dir = "test_files/observed"
+        os.makedirs(temp_dir, exist_ok=True)
+
+        # Create a test CSV file
+        csv_filepath = os.path.join(temp_dir, "Abadia-BA_-11.56_-37.52.csv")
+        with open(csv_filepath, "w", newline="") as csv_file:
+            writer = csv.writer(csv_file, delimiter=";")
+            writer.writerow(["periods", "precipitation", "temperature", ""])
+            writer.writerow(["2023-01-01", "5", "25", ""])
+            writer.writerow(["2023-01-02", "10", "23", ""])
+
+        # Define the expected output JSON file path
+        expected_output_filepath = os.path.join(temp_dir, "BA_Abadia.json")
+
+        # Call the function under test
+        extractor.csv_to_json(csv_filepath, temp_dir)
+
+        # Verify that the output JSON file exists
+        assert os.path.exists(expected_output_filepath)
+
+        # Load the output JSON file
+        with open(expected_output_filepath, "r") as json_file:
+            json_data = json.load(json_file)
+
+        # Verify the contents of the JSON file
+        expected_data = {
+            "city": "Abadia",
+            "state": "BA",
+            "coordinates": ["-11.56", "-37.52"],
+            "observed": {
+                "periods": ["2023-01-01", "2023-01-02"],
+                "precipitation": ["5", "10"],
+                "temperature": ["25", "23"]
+            }
+        }
+        assert json_data == expected_data
+
+        # Clean up the temporary directory and files
+        os.remove(csv_filepath)
+        os.remove(expected_output_filepath)
+        os.rmdir(temp_dir)
