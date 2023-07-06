@@ -275,4 +275,4 @@ def make_has_directory(checker_fn: Callable[[str], bool]) -> Callable[[str], boo
     
     return has_directory
 
-main("../data", "mongo_input")
+main("../data", "seeds")
